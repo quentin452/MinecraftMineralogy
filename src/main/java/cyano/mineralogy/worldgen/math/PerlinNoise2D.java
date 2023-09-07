@@ -21,12 +21,20 @@ public class PerlinNoise2D {
         }
     }
 
-    public float valueAt(double x, double y) {
-        float sum = 0;
-        for (int i = 0; i < layers.length; i++) {
-            sum += layers[i].getValueAt(x, y);
+    public float[] valueAt(double[] xs, double[] ys) {
+        int numPoints = xs.length;
+        float[] result = new float[numPoints];
+
+        for (int i = 0; i < numPoints; i++) {
+            result[i] = 0; // Initialize the result
+
+            // Calculate the contribution from each layer
+            for (int j = 0; j < layers.length; j++) {
+                result[i] += layers[j].getValueAt(xs[i], ys[i]);
+            }
         }
-        return sum;
+
+        return result;
     }
 
     private static long scramble(long l) {

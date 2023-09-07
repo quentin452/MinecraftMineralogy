@@ -65,8 +65,15 @@ public class Geology {
      */
     public Block getStoneAt(int x, int y, int z) {
         // new method: 2D perlin noise instead of 3D
-        float geome = geomeNoiseLayer.valueAt(x, z) + y;
-        int rv = (int) rockNoiseLayer.valueAt(x, z) + y;
+        double[] xs = { x };
+        double[] zs = { z };
+        float[] geomeValues = geomeNoiseLayer.valueAt(xs, zs);
+
+        float geome = geomeValues[0];
+
+        float[] rockValues = rockNoiseLayer.valueAt(xs, zs);
+        int rv = (int) rockValues[0] + y;
+
         if (geome < -64) {
             // RockType.IGNEOUS;
             return pickBlockFromList(rv, Mineralogy.igneousStones);
@@ -77,8 +84,8 @@ public class Geology {
             // RockType.SEDIMENTARY;
             return pickBlockFromList(rv, Mineralogy.sedimentaryStones);
         }
-
     }
+
 
     public void replaceStoneInChunk(int chunkX, int chunkZ, Block[] blockBuffer) {
         /*
@@ -99,8 +106,13 @@ public class Geology {
                 while (y > 0 && blockBuffer[indexBase + y] == Blocks.air) {
                     y--;
                 }
-                int baseRockVal = (int) rockNoiseLayer.valueAt(x, z);
-                int gbase = (int) geomeNoiseLayer.valueAt(x, z);
+                double[] xs = { x };
+                double[] zs = { z };
+                float[] rockValues = rockNoiseLayer.valueAt(xs, zs);
+                float[] geomeValues = geomeNoiseLayer.valueAt(xs, zs);
+
+                int baseRockVal = (int) rockValues[0];
+                int gbase = (int) geomeValues[0];
 
                 // Block[] column = this.getStoneColumn(xOffset | dx, zOffset | dz, y);
                 for (; y > 0; y--) {
@@ -126,8 +138,13 @@ public class Geology {
 
     public Block[] getStoneColumn(int x, int z, int height) {
         Block[] col = new Block[height];
-        int baseRockVal = (int) rockNoiseLayer.valueAt(x, z);
-        double gbase = geomeNoiseLayer.valueAt(x, z);
+        double[] xs = { x };
+        double[] zs = { z };
+        float[] rockValues = rockNoiseLayer.valueAt(xs, zs);
+        float[] geomeValues = geomeNoiseLayer.valueAt(xs, zs);
+
+        int baseRockVal = (int) rockValues[0];
+        int gbase = (int) geomeValues[0];
         for (int y = 0; y < col.length; y++) {
             double geome = gbase + y;
             if (geome < -32) {
