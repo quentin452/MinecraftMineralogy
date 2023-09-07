@@ -231,6 +231,12 @@ public class ChunkProviderGenerateCustom implements IChunkProvider {
         return this.provideChunk(p_73158_1_, p_73158_2_);
     }
 
+    private double[] generateNoise(NoiseGeneratorOctavesCustom generator, int p1, int p2, int p3) {
+        double[] noiseArray = new double[5 * 33 * 5];
+        generator.generateNoiseOctaves(noiseArray, p1, p2, p3, 5, 33, 5, 684.412D, 684.412D, 684.412D);
+        return noiseArray;
+    }
+
     /**
      * Will return back a chunk, if it doesn't exist and its not a MP client it will generates all the blocks for the
      * specified chunk from the map seed and chunk seed
@@ -282,28 +288,9 @@ public class ChunkProviderGenerateCustom implements IChunkProvider {
             8.555150000000001D,
             4.277575000000001D,
             8.555150000000001D);
-        this.field_147428_e = this.field_147431_j.generateNoiseOctaves(
-            this.field_147428_e,
-            p_147423_1_,
-            p_147423_2_,
-            p_147423_3_,
-            5,
-            33,
-            5,
-            684.412D,
-            684.412D,
-            684.412D);
-        this.field_147425_f = this.field_147432_k.generateNoiseOctaves(
-            this.field_147425_f,
-            p_147423_1_,
-            p_147423_2_,
-            p_147423_3_,
-            5,
-            33,
-            5,
-            684.412D,
-            684.412D,
-            684.412D);
+        this.field_147428_e = generateNoise(this.field_147431_j, p_147423_1_, p_147423_2_, p_147423_3_);
+        this.field_147425_f = generateNoise(this.field_147432_k, p_147423_1_, p_147423_2_, p_147423_3_);
+
         boolean flag1 = false;
         boolean flag = false;
         int l = 0;
@@ -390,7 +377,7 @@ public class ChunkProviderGenerateCustom implements IChunkProvider {
                     double d10 = MathHelper.denormalizeClamp(d7, d8, d9) - d6;
 
                     if (j2 > 29) {
-                        double d11 = (double) ((float) (j2 - 29) / 3.0F);
+                        double d11 = (float) (j2 - 29) / 3.0F;
                         d10 = d10 * (1.0D - d11) + -10.0D * d11;
                     }
 
