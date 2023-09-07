@@ -10,7 +10,7 @@ import cyano.mineralogy.Mineralogy;
 import cyano.mineralogy.worldgen.math.PerlinNoise2D;
 
 public class Geology {
-
+    private final Random random;
     private final PerlinNoise2D geomeNoiseLayer;
     private final PerlinNoise2D rockNoiseLayer;
     private final long seed;
@@ -27,7 +27,7 @@ public class Geology {
     private final short[] whiteNoiseArray;
 
     /**
-     * 
+     *
      * @param seed          World seed
      * @param geomeSize     Approximate size of rock type layers (should be much bigger than <code>rockLayerSize</code>
      * @param rockLayerSize Approximate diameter of layers in the X-Z plane
@@ -45,10 +45,10 @@ public class Geology {
             rockLayerUndertones);
         this.geomeSize = geomeSize;
 
-        Random r = new Random(seed);
+        random = new Random(seed);
         whiteNoiseArray = new short[256];
         for (int i = 0; i < whiteNoiseArray.length; i++) {
-            whiteNoiseArray[i] = (short) r.nextInt(0x7FFF);
+            whiteNoiseArray[i] = (short) random.nextInt(0x7FFF);
         }
     }
 
@@ -56,7 +56,7 @@ public class Geology {
      * This method gets the stone replacement for a given coordinate. It does not
      * check whether there should be stone at the given coordinate, just what
      * block to put there if there were to be stone at the given coordinate.
-     * 
+     *
      * @param x X coordinate (block coordinate space)
      * @param y Y coordinate (block coordinate space)
      * @param z Z coordinate (block coordinate space)
@@ -145,7 +145,7 @@ public class Geology {
 
     /**
      * given any number, this method grabs a block from the list based on that number.
-     * 
+     *
      * @param value product of noise layer + height
      * @param list
      * @return

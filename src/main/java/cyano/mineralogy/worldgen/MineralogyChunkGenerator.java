@@ -10,12 +10,12 @@ import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.VILL
 import java.util.List;
 import java.util.Random;
 
+import cyano.mineralogy.worldgen.gen.ChunkProviderGenerateCustom;
 import net.minecraft.block.Block;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldType;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.Chunk;
-import net.minecraft.world.gen.ChunkProviderGenerate;
 import net.minecraft.world.gen.MapGenBase;
 import net.minecraft.world.gen.MapGenCaves;
 import net.minecraft.world.gen.MapGenRavine;
@@ -34,7 +34,7 @@ import cyano.mineralogy.Mineralogy;
  *
  */
 
-public class MineralogyChunkGenerator extends ChunkProviderGenerate {
+public class MineralogyChunkGenerator extends ChunkProviderGenerateCustom {
 
     final String generatorOptionsString;
     final WorldType worldType;
