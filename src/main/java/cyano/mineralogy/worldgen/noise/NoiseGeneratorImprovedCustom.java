@@ -1,7 +1,6 @@
 package cyano.mineralogy.worldgen.noise;
 
 import java.util.Random;
-
 import net.minecraft.world.gen.NoiseGenerator;
 
 public class NoiseGeneratorImprovedCustom extends NoiseGenerator {
@@ -10,6 +9,12 @@ public class NoiseGeneratorImprovedCustom extends NoiseGenerator {
     public double xCoord;
     public double yCoord;
     public double zCoord;
+    private static final int PERMUTATION_SIZE = 512;
+    private static final int PERMUTATION_MASK = 255;
+    private static final double F2 = 0.5 * (Math.sqrt(3.0) - 1.0);
+    private static final double G2 = (3.0 - Math.sqrt(3.0)) / 6.0;
+    private static final double[] GRADIENTS = new double[PERMUTATION_SIZE * 3];
+    private static final double[] INTERPOLATION = new double[PERMUTATION_SIZE * 3];
     private static final double[] field_152381_e = new double[] { 1.0D, -1.0D, 1.0D, -1.0D, 1.0D, -1.0D, 1.0D, -1.0D,
         0.0D, 0.0D, 0.0D, 0.0D, 1.0D, 0.0D, -1.0D, 0.0D };
     private static final double[] field_152382_f = new double[] { 1.0D, 1.0D, -1.0D, -1.0D, 0.0D, 0.0D, 0.0D, 0.0D,
@@ -20,15 +25,17 @@ public class NoiseGeneratorImprovedCustom extends NoiseGenerator {
         0.0D, 0.0D, 0.0D, 0.0D, 1.0D, 0.0D, -1.0D, 0.0D };
     private static final double[] field_152385_i = new double[] { 0.0D, 0.0D, 0.0D, 0.0D, 1.0D, 1.0D, -1.0D, -1.0D,
         1.0D, 1.0D, -1.0D, -1.0D, 0.0D, 1.0D, 0.0D, -1.0D };
-    private static final int PERMUTATION_SIZE = 512;
-    private static final int PERMUTATION_MASK = 256;
-    private static final double F2 = 0.5 * (Math.sqrt(3.0) - 1.0);
-    private static final double G2 = (3.0 - Math.sqrt(3.0)) / 6.0;
-
     public NoiseGeneratorImprovedCustom() {
         this(new Random());
     }
+    public final double lerp(double p_76311_1_, double p_76311_3_, double p_76311_5_) {
+        return p_76311_3_ + p_76311_1_ * (p_76311_5_ - p_76311_3_);
+    }
 
+    public final double func_76309_a(int p_76309_1_, double p_76309_2_, double p_76309_4_) {
+        int j = p_76309_1_ & 15;
+        return field_152384_h[j] * p_76309_2_ + field_152385_i[j] * p_76309_4_;
+    }
     public NoiseGeneratorImprovedCustom(Random p_i45469_1_) {
         this.permutations = new int[PERMUTATION_SIZE];
         this.xCoord = p_i45469_1_.nextDouble() * 256.0D;
@@ -47,29 +54,22 @@ public class NoiseGeneratorImprovedCustom extends NoiseGenerator {
             this.permutations[j] = k;
             this.permutations[i + PERMUTATION_MASK] = this.permutations[i];
         }
+
+        // Precalculate gradients and interpolation values
+        for (i = 0; i < PERMUTATION_SIZE; i++) {
+            int index = i * 3;
+            GRADIENTS[index] = field_152381_e[i & 15];
+            GRADIENTS[index + 1] = field_152382_f[i & 15];
+            GRADIENTS[index + 2] = field_152383_g[i & 15];
+            INTERPOLATION[index] = field_152384_h[i & 15];
+            INTERPOLATION[index + 1] = field_152385_i[i & 15];
+            INTERPOLATION[index + 2] = field_152384_h[i & 15];
+        }
     }
 
-    public final double lerp(double p_76311_1_, double p_76311_3_, double p_76311_5_) {
-        return p_76311_3_ + p_76311_1_ * (p_76311_5_ - p_76311_3_);
-    }
-
-    public final double func_76309_a(int p_76309_1_, double p_76309_2_, double p_76309_4_) {
-        int j = p_76309_1_ & 15;
-        return field_152384_h[j] * p_76309_2_ + field_152385_i[j] * p_76309_4_;
-    }
-
-    public final double grad(int p_76310_1_, double p_76310_2_, double p_76310_4_, double p_76310_6_) {
-        int j = p_76310_1_ & 15;
-        return field_152381_e[j] * p_76310_2_ + field_152382_f[j] * p_76310_4_ + field_152383_g[j] * p_76310_6_;
-    }
-
-    /**
-     * pars: noiseArray , xOffset , yOffset , zOffset , xSize , ySize , zSize , xScale, yScale , zScale , noiseScale.
-     * noiseArray should be xSize*ySize*zSize in size
-     */
     public void populateNoiseArray(double[] p_76308_1_, double p_76308_2_, double p_76308_4_, double p_76308_6_,
-        int p_76308_8_, int p_76308_9_, int p_76308_10_, double p_76308_11_, double p_76308_13_, double p_76308_15_,
-        double p_76308_17_) {
+                                   int p_76308_8_, int p_76308_9_, int p_76308_10_, double p_76308_11_, double p_76308_13_, double p_76308_15_,
+                                   double p_76308_17_) {
         int l;
         int i1;
         double d9;
@@ -119,14 +119,8 @@ public class NoiseGeneratorImprovedCustom extends NoiseGenerator {
                     int i4 = this.permutations[l] + j2;
                     int j4 = this.permutations[k1 + 1] + 0;
                     i1 = this.permutations[j4] + j2;
-                    d21 = this.lerp(
-                        d11,
-                        this.func_76309_a(this.permutations[i4], d9, d12),
-                        this.grad(this.permutations[i1], d9 - 1.0D, 0.0D, d12));
-                    d22 = this.lerp(
-                        d11,
-                        this.grad(this.permutations[i4 + 1], d9, 0.0D, d12 - 1.0D),
-                        this.grad(this.permutations[i1 + 1], d9 - 1.0D, 0.0D, d12 - 1.0D));
+                    d21 = this.lerp(d11, INTERPOLATION[l * 3], INTERPOLATION[i1 * 3]);
+                    d22 = this.lerp(d11, INTERPOLATION[(i4 * 3) + 1], INTERPOLATION[(i1 * 3) + 1]);
                     double d24 = this.lerp(d13, d21, d22);
                     j6 = k5++;
                     p_76308_1_[j6] += d24 * d23;
@@ -191,22 +185,10 @@ public class NoiseGeneratorImprovedCustom extends NoiseGenerator {
                             int j5 = this.permutations[j2 + 1] + l3;
                             k5 = this.permutations[j5] + i3;
                             int l5 = this.permutations[j5 + 1] + i3;
-                            d8 = this.lerp(
-                                d13,
-                                this.grad(this.permutations[l4], d12, d16, d14),
-                                this.grad(this.permutations[k5], d12 - 1.0D, d16, d14));
-                            d9 = this.lerp(
-                                d13,
-                                this.grad(this.permutations[i5], d12, d16 - 1.0D, d14),
-                                this.grad(this.permutations[l5], d12 - 1.0D, d16 - 1.0D, d14));
-                            d10 = this.lerp(
-                                d13,
-                                this.grad(this.permutations[l4 + 1], d12, d16, d14 - 1.0D),
-                                this.grad(this.permutations[k5 + 1], d12 - 1.0D, d16, d14 - 1.0D));
-                            d11 = this.lerp(
-                                d13,
-                                this.grad(this.permutations[i5 + 1], d12, d16 - 1.0D, d14 - 1.0D),
-                                this.grad(this.permutations[l5 + 1], d12 - 1.0D, d16 - 1.0D, d14 - 1.0D));
+                            d8 = this.lerp(d13, INTERPOLATION[l4 * 3], INTERPOLATION[l5 * 3]);
+                            d9 = this.lerp(d13, INTERPOLATION[(i5 * 3) + 1], INTERPOLATION[(l5 * 3) + 1]);
+                            d10 = this.lerp(d13, INTERPOLATION[(k4 * 3) + 2], INTERPOLATION[(j5 * 3) + 2]);
+                            d11 = this.lerp(d13, INTERPOLATION[(k5 * 3) + 2], INTERPOLATION[(l4 * 3) + 2]);
                         }
 
                         double d18 = this.lerp(d17, d8, d9);
