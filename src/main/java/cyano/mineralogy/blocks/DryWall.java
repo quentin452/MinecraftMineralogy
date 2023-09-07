@@ -14,6 +14,6 @@ public class DryWall extends net.minecraft.block.BlockPane {
             Mineralogy.MODID + ":" + itemName + "_top",
             Material.rock,
             true);
-        this.setUnlocalizedName(Mineralogy.MODID + "_" + itemName + "_" + color);
+        this.setBlockName(Mineralogy.MODID + "_" + itemName + "_" + color);
     }
 }

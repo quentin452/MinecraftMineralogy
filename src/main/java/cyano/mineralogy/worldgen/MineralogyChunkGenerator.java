@@ -29,7 +29,7 @@ import cyano.mineralogy.Mineralogy;
 
 /**
  * Replaces minecraft generic stone with new mineralogy stone blocks
- * 
+ *
  * @author Cyanobacterium
  *
  */
@@ -86,16 +86,16 @@ public class MineralogyChunkGenerator extends ChunkProviderGenerate {
         this.biomesForGeneration = this.worldObj.getWorldChunkManager()
             .loadBlockGeneratorData(this.biomesForGeneration, chunkX * 16, chunkY * 16, 16, 16);
         this.replaceBlocksForBiome(chunkX, chunkY, ablock, abyte, this.biomesForGeneration);
-        this.caveGenerator.generate(this, this.worldObj, chunkX, chunkY, ablock);
-        this.ravineGenerator.generate(this, this.worldObj, chunkX, chunkY, ablock);
+        this.caveGenerator.func_151539_a(this, this.worldObj, chunkX, chunkY, ablock);
+        this.ravineGenerator.func_151539_a(this, this.worldObj, chunkX, chunkY, ablock);
 
         geome.replaceStoneInChunk(chunkX, chunkY, ablock);
 
         if (this.mapFeaturesEnabled) {
-            this.mineshaftGenerator.generate(this, this.worldObj, chunkX, chunkY, ablock);
-            this.villageGenerator.generate(this, this.worldObj, chunkX, chunkY, ablock);
-            this.strongholdGenerator.generate(this, this.worldObj, chunkX, chunkY, ablock);
-            this.scatteredFeatureGenerator.generate(this, this.worldObj, chunkX, chunkY, ablock);
+            this.mineshaftGenerator.generateStructuresInChunk(this.worldObj, rand, chunkX, chunkY);
+            this.villageGenerator.generateStructuresInChunk(this.worldObj, rand, chunkX, chunkY);
+            this.strongholdGenerator.generateStructuresInChunk(this.worldObj, rand, chunkX, chunkY);
+            this.scatteredFeatureGenerator.generateStructuresInChunk(this.worldObj, rand, chunkX, chunkY);
         }
 
         Chunk chunk = new Chunk(this.worldObj, ablock, abyte, chunkX, chunkY);
@@ -137,7 +137,7 @@ public class MineralogyChunkGenerator extends ChunkProviderGenerate {
     /**
      * given any number, this method grabs a block from the list based on that number.
      * A gradually increasing number would cycle through the list.
-     * 
+     *
      * @param value
      * @param list
      * @return
@@ -150,7 +150,7 @@ public class MineralogyChunkGenerator extends ChunkProviderGenerate {
 
     /**
      * Faster implementation than Math.floor(x).
-     * 
+     *
      * @param x
      * @return The greatest integer value less than x. If x is NaN, then 0 is
      *         returned. If x is infinite (positive or negative), then Long.MAX_VALUE is returned.
