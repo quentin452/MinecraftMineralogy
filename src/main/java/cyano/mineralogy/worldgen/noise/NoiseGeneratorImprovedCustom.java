@@ -89,19 +89,6 @@ public class NoiseGeneratorImprovedCustom extends NoiseGenerator {
                 p_76308_13_,
                 p_76308_15_,
                 p_76308_17_);
-        } else {
-            populateNoiseArray3(
-                p_76308_1_,
-                p_76308_2_,
-                p_76308_4_,
-                p_76308_6_,
-                p_76308_8_,
-                p_76308_9_,
-                p_76308_10_,
-                p_76308_11_,
-                p_76308_13_,
-                p_76308_15_,
-                p_76308_17_);
         }
     }
 
@@ -160,78 +147,7 @@ public class NoiseGeneratorImprovedCustom extends NoiseGenerator {
         }
     }
 
-    private void populateNoiseArray3(double[] p_76308_1_, double p_76308_2_, double p_76308_4_, double p_76308_6_,
-        int p_76308_8_, int p_76308_9_, int p_76308_10_, double p_76308_11_, double p_76308_13_, double p_76308_15_,
-        double p_76308_17_) {
-        int l;
-        double d7 = 1.0D / p_76308_17_;
-        double i1 = -1;
-        double d8 = 0.0D;
-        double d9 = 0.0D;
-        double d10 = 0.0D;
-        double d11 = 0.0D;
-        l = 0;
-
-        for (double l1 = 0; l1 < p_76308_8_; ++l1) {
-            double d12 = p_76308_2_ + l1 * p_76308_11_ + this.xCoord;
-            int i2 = (int) d12;
-
-            if (d12 < (double) i2) {
-                --i2;
-            }
-
-            double j2 = i2 & 255;
-            d12 -= i2;
-            double d13 = d12 * d12 * d12 * (d12 * (d12 * 6.0D - 15.0D) + 10.0D);
-
-            for (int k2 = 0; k2 < p_76308_10_; ++k2) {
-                double d14 = p_76308_6_ + (double) k2 * p_76308_15_ + this.zCoord;
-                int l2 = (int) d14;
-
-                if (d14 < (double) l2) {
-                    --l2;
-                }
-
-                int i3 = l2 & 255;
-                d14 -= l2;
-                double d15 = d14 * d14 * d14 * (d14 * (d14 * 6.0D - 15.0D) + 10.0D);
-
-                for (int j3 = 0; j3 < p_76308_9_; ++j3) {
-                    double d16 = p_76308_4_ + (double) j3 * p_76308_13_ + this.yCoord;
-                    int k3 = (int) d16;
-
-                    if (d16 < (double) k3) {
-                        --k3;
-                    }
-
-                    int l3 = k3 & 255;
-                    d16 -= k3;
-                    double d17 = d16 * d16 * d16 * (d16 * (d16 * 6.0D - 15.0D) + 10.0D);
-
-                    if (j3 == 0 || l3 != i1) {
-                        i1 = l3;
-                        int k4 = this.permutations[(int) j2] + l3;
-                        int l4 = this.permutations[k4] + i3;
-                        int i5 = this.permutations[k4 + 1] + i3;
-                        int j5 = this.permutations[(int) (j2 + 1)] + l3;
-                        int k5 = this.permutations[j5] + i3;
-                        int l5 = this.permutations[j5 + 1] + i3;
-                        d8 = this.lerp(d13, INTERPOLATION[l4 * 3], INTERPOLATION[l5 * 3]);
-                        d9 = this.lerp(d13, INTERPOLATION[(i5 * 3) + 1], INTERPOLATION[(l5 * 3) + 1]);
-                        d10 = this.lerp(d13, INTERPOLATION[(k4 * 3) + 2], INTERPOLATION[(j5 * 3) + 2]);
-                        d11 = this.lerp(d13, INTERPOLATION[(k5 * 3) + 2], INTERPOLATION[(l4 * 3) + 2]);
-                    }
-
-                    double d18 = this.lerp(d17, d8, d9);
-                    double d19 = this.lerp(d17, d10, d11);
-                    double d20 = this.lerp(d15, d18, d19);
-                    int j6 = l++;
-                    p_76308_1_[j6] += d20 * d7;
-                }
-            }
-        }
-    }
-
+    // todo fixme , make weird corruptions
     public void parallelPopulateNoiseArray(double[] p_76308_1_, double p_76308_2_, double p_76308_4_, double p_76308_6_,
         int p_76308_8_, int p_76308_9_, int p_76308_10_, double p_76308_11_, double p_76308_13_, double p_76308_15_,
         double p_76308_17_) {
@@ -250,19 +166,6 @@ public class NoiseGeneratorImprovedCustom extends NoiseGenerator {
                         p_76308_4_,
                         p_76308_6_,
                         1,
-                        p_76308_10_,
-                        p_76308_11_,
-                        p_76308_13_,
-                        p_76308_15_,
-                        p_76308_17_);
-                } else {
-                    populateNoiseArray3(
-                        subArray,
-                        p_76308_2_,
-                        p_76308_4_,
-                        p_76308_6_,
-                        1,
-                        p_76308_9_,
                         p_76308_10_,
                         p_76308_11_,
                         p_76308_13_,
