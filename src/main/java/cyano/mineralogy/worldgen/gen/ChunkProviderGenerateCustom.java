@@ -202,17 +202,11 @@ public class ChunkProviderGenerateCustom implements IChunkProvider {
         if (event.getResult() == Event.Result.DENY) return;
 
         double d0 = 0.03125D;
-        this.stoneNoise = this.field_147430_m.func_151599_a(
-            this.stoneNoise,
-            p_147422_1_ * 16,
-            p_147422_2_ * 16,
-            16,
-            16,
-            d0 * 2.0D,
-            d0 * 2.0D,
-            1.0D);
+        this.stoneNoise = this.field_147430_m
+            .func_151599_a(this.stoneNoise, p_147422_1_ * 16, p_147422_2_ * 16, 16, 16, d0 * 2.0D, d0 * 2.0D, 1.0D);
 
-        int numThreads = Runtime.getRuntime().availableProcessors();
+        int numThreads = Runtime.getRuntime()
+            .availableProcessors();
         ExecutorService executor = Executors.newFixedThreadPool(numThreads);
 
         for (int k = 0; k < 16; ++k) {
@@ -236,7 +230,8 @@ public class ChunkProviderGenerateCustom implements IChunkProvider {
         try {
             executor.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
         } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
+            Thread.currentThread()
+                .interrupt();
         }
     }
 
