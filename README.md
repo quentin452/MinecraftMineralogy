@@ -1,4 +1,4 @@
-# Mineralogy
+# Mineralogy Continuation
 ## Cyano's Minecraft Mineralogy Mod
 This mod replaces the generic "stone" in Minecraft with real-world rock types.
 
