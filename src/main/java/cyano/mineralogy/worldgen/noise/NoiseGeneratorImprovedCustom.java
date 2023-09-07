@@ -20,28 +20,32 @@ public class NoiseGeneratorImprovedCustom extends NoiseGenerator {
         0.0D, 0.0D, 0.0D, 0.0D, 1.0D, 0.0D, -1.0D, 0.0D };
     private static final double[] field_152385_i = new double[] { 0.0D, 0.0D, 0.0D, 0.0D, 1.0D, 1.0D, -1.0D, -1.0D,
         1.0D, 1.0D, -1.0D, -1.0D, 0.0D, 1.0D, 0.0D, -1.0D };
+    private static final int PERMUTATION_SIZE = 512;
+    private static final int PERMUTATION_MASK = 256;
+    private static final double F2 = 0.5 * (Math.sqrt(3.0) - 1.0);
+    private static final double G2 = (3.0 - Math.sqrt(3.0)) / 6.0;
 
     public NoiseGeneratorImprovedCustom() {
         this(new Random());
     }
 
     public NoiseGeneratorImprovedCustom(Random p_i45469_1_) {
-        this.permutations = new int[512];
+        this.permutations = new int[PERMUTATION_SIZE];
         this.xCoord = p_i45469_1_.nextDouble() * 256.0D;
         this.yCoord = p_i45469_1_.nextDouble() * 256.0D;
         this.zCoord = p_i45469_1_.nextDouble() * 256.0D;
         int i;
 
-        for (i = 0; i < 256; this.permutations[i] = i++) {
+        for (i = 0; i < PERMUTATION_MASK; this.permutations[i] = i++) {
             ;
         }
 
-        for (i = 0; i < 256; ++i) {
-            int j = p_i45469_1_.nextInt(256 - i) + i;
+        for (i = 0; i < PERMUTATION_MASK; ++i) {
+            int j = p_i45469_1_.nextInt(PERMUTATION_MASK - i) + i;
             int k = this.permutations[i];
             this.permutations[i] = this.permutations[j];
             this.permutations[j] = k;
-            this.permutations[i + 256] = this.permutations[i];
+            this.permutations[i + PERMUTATION_MASK] = this.permutations[i];
         }
     }
 
