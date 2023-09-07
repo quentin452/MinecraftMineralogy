@@ -6,6 +6,9 @@ import static net.minecraftforge.event.terraingen.PopulateChunkEvent.Populate.Ev
 
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFalling;
@@ -209,18 +212,31 @@ public class ChunkProviderGenerateCustom implements IChunkProvider {
             d0 * 2.0D,
             1.0D);
 
+        int numThreads = Runtime.getRuntime().availableProcessors();
+        ExecutorService executor = Executors.newFixedThreadPool(numThreads);
+
         for (int k = 0; k < 16; ++k) {
-            for (int l = 0; l < 16; ++l) {
-                BiomeGenBase biomegenbase = p_147422_5_[l + k * 16];
-                biomegenbase.genTerrainBlocks(
-                    this.worldObj,
-                    this.rand,
-                    p_147422_3_,
-                    p_147422_4_,
-                    p_147422_1_ * 16 + k,
-                    p_147422_2_ * 16 + l,
-                    this.stoneNoise[l + k * 16]);
-            }
+            final int row = k;
+            executor.submit(() -> {
+                for (int l = 0; l < 16; ++l) {
+                    BiomeGenBase biomegenbase = p_147422_5_[l + row * 16];
+                    biomegenbase.genTerrainBlocks(
+                        this.worldObj,
+                        this.rand,
+                        p_147422_3_,
+                        p_147422_4_,
+                        p_147422_1_ * 16 + row,
+                        p_147422_2_ * 16 + l,
+                        this.stoneNoise[l + row * 16]);
+                }
+            });
+        }
+
+        executor.shutdown();
+        try {
+            executor.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
         }
     }
 
