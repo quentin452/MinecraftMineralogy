@@ -86,7 +86,6 @@ public class Geology {
         }
     }
 
-
     public void replaceStoneInChunk(int chunkX, int chunkZ, Block[] blockBuffer) {
         /*
          * if(chunkZ % 4 != 0){
