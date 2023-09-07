@@ -92,10 +92,10 @@ public class MineralogyChunkGenerator extends ChunkProviderGenerate {
         geome.replaceStoneInChunk(chunkX, chunkY, ablock);
 
         if (this.mapFeaturesEnabled) {
-            this.mineshaftGenerator.generateStructuresInChunk(this.worldObj, rand, chunkX, chunkY);
-            this.villageGenerator.generateStructuresInChunk(this.worldObj, rand, chunkX, chunkY);
-            this.strongholdGenerator.generateStructuresInChunk(this.worldObj, rand, chunkX, chunkY);
-            this.scatteredFeatureGenerator.generateStructuresInChunk(this.worldObj, rand, chunkX, chunkY);
+            this.mineshaftGenerator.func_143025_a();
+            this.villageGenerator.func_143025_a();
+            this.strongholdGenerator.func_143025_a();
+            this.scatteredFeatureGenerator.func_143025_a();
         }
 
         Chunk chunk = new Chunk(this.worldObj, ablock, abyte, chunkX, chunkY);
