@@ -4,20 +4,19 @@ import java.util.Random;
 
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.gen.NoiseGenerator;
-import net.minecraft.world.gen.NoiseGeneratorImproved;
 
 public class NoiseGeneratorOctavesCustom extends NoiseGenerator {
 
     /** Collection of noise generation functions. Output is combined to produce different octaves of noise. */
-    private NoiseGeneratorImproved[] generatorCollection;
+    private NoiseGeneratorImprovedCustom[] generatorCollection;
     private int octaves;
 
     public NoiseGeneratorOctavesCustom(Random p_i2111_1_, int p_i2111_2_) {
         this.octaves = p_i2111_2_;
-        this.generatorCollection = new NoiseGeneratorImproved[p_i2111_2_];
+        this.generatorCollection = new NoiseGeneratorImprovedCustom[p_i2111_2_];
 
         for (int j = 0; j < p_i2111_2_; ++j) {
-            this.generatorCollection[j] = new NoiseGeneratorImproved(p_i2111_1_);
+            this.generatorCollection[j] = new NoiseGeneratorImprovedCustom(p_i2111_1_);
         }
     }
 
