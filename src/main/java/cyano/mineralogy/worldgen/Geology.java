@@ -10,6 +10,7 @@ import cyano.mineralogy.Mineralogy;
 import cyano.mineralogy.worldgen.math.PerlinNoise2D;
 
 public class Geology {
+
     private final Random random;
     private final PerlinNoise2D geomeNoiseLayer;
     private final PerlinNoise2D rockNoiseLayer;

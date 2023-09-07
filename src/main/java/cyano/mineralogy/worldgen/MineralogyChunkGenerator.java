@@ -10,7 +10,6 @@ import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.VILL
 import java.util.List;
 import java.util.Random;
 
-import cyano.mineralogy.worldgen.gen.ChunkProviderGenerateCustom;
 import net.minecraft.block.Block;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldType;
@@ -26,6 +25,7 @@ import net.minecraft.world.gen.structure.MapGenVillage;
 import net.minecraftforge.event.terraingen.TerrainGen;
 
 import cyano.mineralogy.Mineralogy;
+import cyano.mineralogy.worldgen.gen.ChunkProviderGenerateCustom;
 
 /**
  * Replaces minecraft generic stone with new mineralogy stone blocks
