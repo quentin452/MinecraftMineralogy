@@ -162,7 +162,7 @@ public class NoiseGeneratorImprovedCustom extends NoiseGenerator {
                     }
 
                     int i3 = l2 & 255;
-                    d14 -= (double) l2;
+                    d14 -= l2;
                     double d15 = d14 * d14 * d14 * (d14 * (d14 * 6.0D - 15.0D) + 10.0D);
 
                     for (int j3 = 0; j3 < p_76308_9_; ++j3) {
@@ -174,7 +174,7 @@ public class NoiseGeneratorImprovedCustom extends NoiseGenerator {
                         }
 
                         int l3 = k3 & 255;
-                        d16 -= (double) k3;
+                        d16 -= k3;
                         double d17 = d16 * d16 * d16 * (d16 * (d16 * 6.0D - 15.0D) + 10.0D);
 
                         if (j3 == 0 || l3 != i1) {

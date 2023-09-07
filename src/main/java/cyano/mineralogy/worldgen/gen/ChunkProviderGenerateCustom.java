@@ -204,8 +204,8 @@ public class ChunkProviderGenerateCustom implements IChunkProvider {
         double d0 = 0.03125D;
         this.stoneNoise = this.field_147430_m.func_151599_a(
             this.stoneNoise,
-            (double) (p_147422_1_ * 16),
-            (double) (p_147422_2_ * 16),
+            p_147422_1_ * 16,
+            p_147422_2_ * 16,
             16,
             16,
             d0 * 2.0D,

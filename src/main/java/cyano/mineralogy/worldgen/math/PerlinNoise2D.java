@@ -29,8 +29,8 @@ public class PerlinNoise2D {
             result[i] = 0; // Initialize the result
 
             // Calculate the contribution from each layer
-            for (int j = 0; j < layers.length; j++) {
-                result[i] += layers[j].getValueAt(xs[i], ys[i]);
+            for (NoiseLayer2D layer : layers) {
+                result[i] += layer.getValueAt(xs[i], ys[i]);
             }
         }
 
