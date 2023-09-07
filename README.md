@@ -7,3 +7,17 @@ the original mod : https://legacy.curseforge.com/minecraft/mc-mods/minecraft-min
 # New Features/Fix
 
 - Massive TPS Performance Improvement during worldgen
+
+# Links to descriptions of my projects.
+
+[*Modrinth*](https://modrinth.com/mod/mineralogy-continuation)
+
+[*Github*](https://github.com/quentin452/MinecraftMineralogy)
+
+[*Curseforge*](https://legacy.curseforge.com/minecraft/mc-mods/mineralogy-continuation)
+
+# Discord
+
+Add me on discord : I'm A Cat[FR]#7202
+
+Discord server : https://discord.gg/ZnmHKJzKkZ
