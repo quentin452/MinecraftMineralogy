@@ -32,7 +32,6 @@ public class Geology {
      * @param seed          World seed
      * @param geomeSize     Approximate size of rock type layers (should be much bigger than <code>rockLayerSize</code>
      * @param rockLayerSize Approximate diameter of layers in the X-Z plane
-     * @param layerFlatness Higher numbers results in thinner rock layers
      */
     public Geology(long seed, double geomeSize, double rockLayerSize) {
         this.seed = seed;

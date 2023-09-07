@@ -5,6 +5,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
+import net.minecraft.world.gen.ChunkProviderServer;
 import net.minecraft.world.gen.NoiseGenerator;
 
 public class NoiseGeneratorImprovedCustom extends NoiseGenerator {
@@ -77,6 +78,9 @@ public class NoiseGeneratorImprovedCustom extends NoiseGenerator {
     public void populateNoiseArray(double[] p_76308_1_, double p_76308_2_, double p_76308_4_, double p_76308_6_,
         int p_76308_8_, int p_76308_9_, int p_76308_10_, double p_76308_11_, double p_76308_13_, double p_76308_15_,
         double p_76308_17_) {
+        ExecutorService executor = Executors.newFixedThreadPool(
+            Runtime.getRuntime()
+                .availableProcessors());
         if (p_76308_9_ == 1) {
             populateNoiseArray1(
                 p_76308_1_,
@@ -89,6 +93,12 @@ public class NoiseGeneratorImprovedCustom extends NoiseGenerator {
                 p_76308_13_,
                 p_76308_15_,
                 p_76308_17_);
+        }
+        executor.shutdown();
+        try {
+            executor.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 
