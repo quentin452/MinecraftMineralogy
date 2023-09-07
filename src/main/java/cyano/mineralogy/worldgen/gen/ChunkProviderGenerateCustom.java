@@ -420,10 +420,22 @@ public class ChunkProviderGenerateCustom implements IChunkProvider {
         this.rand.setSeed((long) p_73153_2_ * i1 + (long) p_73153_3_ * j1 ^ this.worldObj.getSeed());
         boolean flag = false;
 
-        MinecraftForge.EVENT_BUS
-            .post(new PopulateChunkEvent.Pre(p_73153_1_, worldObj, rand, p_73153_2_, p_73153_3_, flag));
+        MinecraftForge.EVENT_BUS.post(new PopulateChunkEvent.Pre(p_73153_1_, worldObj, rand, p_73153_2_, p_73153_3_, flag));
 
         if (this.mapFeaturesEnabled) {
+            if (this.mineshaftGenerator == null) {
+                this.mineshaftGenerator = new MapGenMineshaft();
+            }
+            if (this.villageGenerator == null) {
+                this.villageGenerator = new MapGenVillage();
+            }
+            if (this.strongholdGenerator == null) {
+                this.strongholdGenerator = new MapGenStronghold();
+            }
+            if (this.scatteredFeatureGenerator == null) {
+                this.scatteredFeatureGenerator = new MapGenScatteredFeature();
+            }
+
             this.mineshaftGenerator.generateStructuresInChunk(this.worldObj, this.rand, p_73153_2_, p_73153_3_);
             flag = this.villageGenerator.generateStructuresInChunk(this.worldObj, this.rand, p_73153_2_, p_73153_3_);
             this.strongholdGenerator.generateStructuresInChunk(this.worldObj, this.rand, p_73153_2_, p_73153_3_);
@@ -464,9 +476,11 @@ public class ChunkProviderGenerateCustom implements IChunkProvider {
         }
 
         biomegenbase.decorate(this.worldObj, this.rand, k, l);
+
         if (TerrainGen.populate(p_73153_1_, worldObj, rand, p_73153_2_, p_73153_3_, flag, ANIMALS)) {
             SpawnerAnimals.performWorldGenSpawning(this.worldObj, biomegenbase, k + 8, l + 8, 16, 16, this.rand);
         }
+
         k += 8;
         l += 8;
 
@@ -485,8 +499,7 @@ public class ChunkProviderGenerateCustom implements IChunkProvider {
             }
         }
 
-        MinecraftForge.EVENT_BUS
-            .post(new PopulateChunkEvent.Post(p_73153_1_, worldObj, rand, p_73153_2_, p_73153_3_, flag));
+        MinecraftForge.EVENT_BUS.post(new PopulateChunkEvent.Post(p_73153_1_, worldObj, rand, p_73153_2_, p_73153_3_, flag));
 
         BlockFalling.fallInstantly = false;
     }
