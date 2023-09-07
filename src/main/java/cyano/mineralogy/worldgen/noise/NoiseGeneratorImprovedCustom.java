@@ -156,43 +156,4 @@ public class NoiseGeneratorImprovedCustom extends NoiseGenerator {
             }
         }
     }
-
-    // todo fixme , make weird corruptions
-    public void parallelPopulateNoiseArray(double[] p_76308_1_, double p_76308_2_, double p_76308_4_, double p_76308_6_,
-        int p_76308_8_, int p_76308_9_, int p_76308_10_, double p_76308_11_, double p_76308_13_, double p_76308_15_,
-        double p_76308_17_) {
-        ExecutorService executor = Executors.newFixedThreadPool(
-            Runtime.getRuntime()
-                .availableProcessors());
-
-        for (int i = 0; i < p_76308_8_; i++) {
-            final int j1 = i;
-            executor.execute(() -> {
-                double[] subArray = new double[p_76308_10_ * p_76308_9_];
-                if (p_76308_9_ == 1) {
-                    populateNoiseArray1(
-                        subArray,
-                        p_76308_2_,
-                        p_76308_4_,
-                        p_76308_6_,
-                        1,
-                        p_76308_10_,
-                        p_76308_11_,
-                        p_76308_13_,
-                        p_76308_15_,
-                        p_76308_17_);
-                }
-                for (int k = 0; k < subArray.length; k++) {
-                    p_76308_1_[j1 * subArray.length + k] += subArray[k];
-                }
-            });
-        }
-
-        executor.shutdown();
-        try {
-            executor.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
 }
