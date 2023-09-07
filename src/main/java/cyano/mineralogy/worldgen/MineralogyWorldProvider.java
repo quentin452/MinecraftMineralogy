@@ -6,18 +6,23 @@ import net.minecraft.world.chunk.IChunkProvider;
 
 public class MineralogyWorldProvider extends WorldProviderSurface {
 
-	public MineralogyWorldProvider(){}
-	
-	/**
+    public MineralogyWorldProvider() {}
+
+    /**
      * Returns a new chunk provider which generates chunks for this world
      */
-	@Override
-    public IChunkProvider createChunkGenerator()
-    {
-		if(terrainType == WorldType.FLAT){
-			return super.createChunkGenerator();
-		}
-        return new MineralogyChunkGenerator(worldObj, worldObj.getSeed(), worldObj.getWorldInfo().isMapFeaturesEnabled(), field_82913_c, terrainType);
+    @Override
+    public IChunkProvider createChunkGenerator() {
+        if (terrainType == WorldType.FLAT) {
+            return super.createChunkGenerator();
+        }
+        return new MineralogyChunkGenerator(
+            worldObj,
+            worldObj.getSeed(),
+            worldObj.getWorldInfo()
+                .isMapFeaturesEnabled(),
+            field_82913_c,
+            terrainType);
     }
-	
+
 }

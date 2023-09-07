@@ -19,13 +19,14 @@ package com.grack.nanojson;
  * Thrown when {@link JsonWriter} is used to write invalid JSON.
  */
 public class JsonWriterException extends RuntimeException {
-	private static final long serialVersionUID = 1L;
 
-	JsonWriterException(String message) {
-		super(message);
-	}
+    private static final long serialVersionUID = 1L;
 
-	JsonWriterException(Throwable t) {
-		super(t);
-	}
+    JsonWriterException(String message) {
+        super(message);
+    }
+
+    JsonWriterException(Throwable t) {
+        super(t);
+    }
 }

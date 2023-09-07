@@ -43,28 +43,27 @@ import java.io.OutputStream;
  * </pre>
  */
 // @formatter:on
-public final class JsonAppendableWriter extends
-		JsonWriterBase<JsonAppendableWriter> implements
-		JsonSink<JsonAppendableWriter> {
-	JsonAppendableWriter(Appendable appendable, String indent) {
-		super(appendable, indent);
-	}
+public final class JsonAppendableWriter extends JsonWriterBase<JsonAppendableWriter>
+    implements JsonSink<JsonAppendableWriter> {
 
-	/**
-	 * Closes this JSON writer and flushes the underlying {@link Appendable} if
-	 * it is also {@link Flushable}.
-	 * 
-	 * @throws JsonWriterException
-	 *             if the underlying {@link Flushable} {@link Appendable} failed
-	 *             to flush.
-	 */
-	public void done() throws JsonWriterException {
-		super.doneInternal();
-		if (appendable instanceof Flushable)
-			try {
-				((Flushable) appendable).flush();
-			} catch (IOException e) {
-				throw new JsonWriterException(e);
-			}
-	}
+    JsonAppendableWriter(Appendable appendable, String indent) {
+        super(appendable, indent);
+    }
+
+    /**
+     * Closes this JSON writer and flushes the underlying {@link Appendable} if
+     * it is also {@link Flushable}.
+     * 
+     * @throws JsonWriterException
+     *                             if the underlying {@link Flushable} {@link Appendable} failed
+     *                             to flush.
+     */
+    public void done() throws JsonWriterException {
+        super.doneInternal();
+        if (appendable instanceof Flushable) try {
+            ((Flushable) appendable).flush();
+        } catch (IOException e) {
+            throw new JsonWriterException(e);
+        }
+    }
 }

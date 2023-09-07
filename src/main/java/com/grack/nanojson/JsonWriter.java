@@ -48,20 +48,21 @@ import java.util.Map;
  */
 //@formatter:on
 public final class JsonWriter {
-	private JsonWriter() {
-	}
 
-	/**
-	 * Allows for additional configuration of the {@link JsonWriter}.
-	 */
-	public static final class JsonWriterContext {
-		private String indent;
+    private JsonWriter() {}
 
-		private JsonWriterContext(String indent) {
-			this.indent = indent;
-		}
+    /**
+     * Allows for additional configuration of the {@link JsonWriter}.
+     */
+    public static final class JsonWriterContext {
 
-		//@formatter:off
+        private String indent;
+
+        private JsonWriterContext(String indent) {
+            this.indent = indent;
+        }
+
+        //@formatter:off
 		/**
 		 * Creates a new {@link JsonStringWriter}.
 		 *
@@ -79,20 +80,20 @@ public final class JsonWriter {
 		 * </pre>
 		 */
 		//@formatter:on
-		public JsonStringWriter string() {
-			return new JsonStringWriter(indent);
-		}
+        public JsonStringWriter string() {
+            return new JsonStringWriter(indent);
+        }
 
-		/**
-		 * Creates a {@link JsonAppendableWriter} that can output to an
-		 * {@link Appendable} subclass, such as a {@link StringBuilder}, a
-		 * {@link Writer} a {@link PrintStream} or a {@link CharBuffer}.
-		 */
-		public JsonAppendableWriter on(Appendable appendable) {
-			return new JsonAppendableWriter(appendable, indent);
-		}
+        /**
+         * Creates a {@link JsonAppendableWriter} that can output to an
+         * {@link Appendable} subclass, such as a {@link StringBuilder}, a
+         * {@link Writer} a {@link PrintStream} or a {@link CharBuffer}.
+         */
+        public JsonAppendableWriter on(Appendable appendable) {
+            return new JsonAppendableWriter(appendable, indent);
+        }
 
-		//@formatter:off
+        //@formatter:off
 		/**
 		 * Creates a {@link JsonAppendableWriter} that can output to an {@link PrintStream} subclass.
 		 * 
@@ -106,11 +107,11 @@ public final class JsonWriter {
 		 * </pre>
 		 */
 		//@formatter:on
-		public JsonAppendableWriter on(PrintStream appendable) {
-			return new JsonAppendableWriter(appendable, indent);
-		}
+        public JsonAppendableWriter on(PrintStream appendable) {
+            return new JsonAppendableWriter(appendable, indent);
+        }
 
-		//@formatter:off
+        //@formatter:off
 		/**
 		 * Creates a {@link JsonAppendableWriter} that can output to an {@link OutputStream} subclass. Uses the UTF-8
 		 * {@link Charset}. To specify a different charset, use the {@link JsonWriter#on(Appendable)} method with an
@@ -126,14 +127,13 @@ public final class JsonWriter {
 		 * </pre>
 		 */
 		//@formatter:on
-		public JsonAppendableWriter on(OutputStream out) {
-			return new JsonAppendableWriter(new OutputStreamWriter(out,
-					Charset.forName("UTF-8")), indent);
-		}
+        public JsonAppendableWriter on(OutputStream out) {
+            return new JsonAppendableWriter(new OutputStreamWriter(out, Charset.forName("UTF-8")), indent);
+        }
 
-	}
+    }
 
-	//@formatter:off
+    //@formatter:off
 	/**
 	 * Creates a {@link JsonWriter} source that will write indented output with the given indent.
 	 * 
@@ -151,21 +151,21 @@ public final class JsonWriter {
 	 * </pre>
 	 */
 	//@formatter:on
-	public static JsonWriter.JsonWriterContext indent(String indent) {
-		if (indent == null) {
-			throw new IllegalArgumentException("indent must be non-null");
-		}
+    public static JsonWriter.JsonWriterContext indent(String indent) {
+        if (indent == null) {
+            throw new IllegalArgumentException("indent must be non-null");
+        }
 
-		for (int i = 0; i < indent.length(); i++) {
-			if (indent.charAt(i) != ' ' && indent.charAt(i) != '\t') {
-				throw new IllegalArgumentException("Only tabs and spaces are allowed for indent.");
-			}
-		}
+        for (int i = 0; i < indent.length(); i++) {
+            if (indent.charAt(i) != ' ' && indent.charAt(i) != '\t') {
+                throw new IllegalArgumentException("Only tabs and spaces are allowed for indent.");
+            }
+        }
 
-		return new JsonWriterContext(indent);
-	}
+        return new JsonWriterContext(indent);
+    }
 
-	//@formatter:off
+    //@formatter:off
 	/**
 	 * Creates a new {@link JsonStringWriter}.
 	 * 
@@ -183,41 +183,42 @@ public final class JsonWriter {
 	 * </pre>
 	 */
 	//@formatter:on
-	public static JsonStringWriter string() {
-		return new JsonStringWriter(null);
-	}
+    public static JsonStringWriter string() {
+        return new JsonStringWriter(null);
+    }
 
-	/**
-	 * Emits a single value (a JSON primitive such as a {@link Number},
-	 * {@link Boolean}, {@link String}, a {@link Map} or {@link JsonObject}, or
-	 * a {@link Collection} or {@link JsonArray}.
-	 * 
-	 * Emit a {@link String}, JSON-escaped:
-	 * 
-	 * <pre>
-	 * JsonWriter.string(&quot;abc\n\&quot;&quot;) // &quot;\&quot;abc\\n\\&quot;\&quot;&quot;
-	 * </pre>
-	 * 
-	 * <pre>
-	 * JsonObject obj = new JsonObject();
-	 * obj.put("abc", 1);
-	 * JsonWriter.string(obj) // "{\"abc\":1}"
-	 * </pre>
-	 */
-	public static String string(Object value) {
-		return new JsonStringWriter(null).value(value).done();
-	}
+    /**
+     * Emits a single value (a JSON primitive such as a {@link Number},
+     * {@link Boolean}, {@link String}, a {@link Map} or {@link JsonObject}, or
+     * a {@link Collection} or {@link JsonArray}.
+     * 
+     * Emit a {@link String}, JSON-escaped:
+     * 
+     * <pre>
+     * JsonWriter.string(&quot;abc\n\&quot;&quot;) // &quot;\&quot;abc\\n\\&quot;\&quot;&quot;
+     * </pre>
+     * 
+     * <pre>
+     * JsonObject obj = new JsonObject();
+     * obj.put("abc", 1);
+     * JsonWriter.string(obj) // "{\"abc\":1}"
+     * </pre>
+     */
+    public static String string(Object value) {
+        return new JsonStringWriter(null).value(value)
+            .done();
+    }
 
-	/**
-	 * Creates a {@link JsonAppendableWriter} that can output to an
-	 * {@link Appendable} subclass, such as a {@link StringBuilder}, a
-	 * {@link Writer} a {@link PrintStream} or a {@link CharBuffer}.
-	 */
-	public static JsonAppendableWriter on(Appendable appendable) {
-		return new JsonAppendableWriter(appendable, null);
-	}
+    /**
+     * Creates a {@link JsonAppendableWriter} that can output to an
+     * {@link Appendable} subclass, such as a {@link StringBuilder}, a
+     * {@link Writer} a {@link PrintStream} or a {@link CharBuffer}.
+     */
+    public static JsonAppendableWriter on(Appendable appendable) {
+        return new JsonAppendableWriter(appendable, null);
+    }
 
-	//@formatter:off
+    //@formatter:off
 	/**
 	 * Creates a {@link JsonAppendableWriter} that can output to an {@link PrintStream} subclass.
 	 * 
@@ -231,11 +232,11 @@ public final class JsonWriter {
 	 * </pre>
 	 */
 	//@formatter:on
-	public static JsonAppendableWriter on(PrintStream appendable) {
-		return new JsonAppendableWriter(appendable, null);
-	}
+    public static JsonAppendableWriter on(PrintStream appendable) {
+        return new JsonAppendableWriter(appendable, null);
+    }
 
-	//@formatter:off
+    //@formatter:off
 	/**
 	 * Creates a {@link JsonAppendableWriter} that can output to an {@link OutputStream} subclass. Uses the UTF-8
 	 * {@link Charset}. To specify a different charset, use the {@link JsonWriter#on(Appendable)} method with an
@@ -251,19 +252,18 @@ public final class JsonWriter {
 	 * </pre>
 	 */
 	//@formatter:on
-	public static JsonAppendableWriter on(OutputStream out) {
-		return new JsonAppendableWriter(new OutputStreamWriter(out,
-				Charset.forName("UTF-8")), null);
-	}
+    public static JsonAppendableWriter on(OutputStream out) {
+        return new JsonAppendableWriter(new OutputStreamWriter(out, Charset.forName("UTF-8")), null);
+    }
 
-	/**
-	 * Escape a string value.
-	 * 
-	 * @param value
-	 * @return the escaped JSON value
-	 */
-	public static String escape(String value) {
-		String s = string(value);
-		return s.substring(1, s.length() - 1);
-	}
+    /**
+     * Escape a string value.
+     * 
+     * @param value
+     * @return the escaped JSON value
+     */
+    public static String escape(String value) {
+        String s = string(value);
+        return s.substring(1, s.length() - 1);
+    }
 }
