@@ -30,7 +30,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
     name = Mineralogy.NAME,
     // TODO pick a master or docs branch to upload an updates.json folder and keep it up to date, then link the raw file
     // here.
-    acceptedMinecraftVersions = "[1.7.10)",
+    acceptedMinecraftVersions = "[1.7.10]",
     certificateFingerprint = "@FINGERPRINT@")
 public class Mineralogy {
 
