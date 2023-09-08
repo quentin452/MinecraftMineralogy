@@ -9,8 +9,6 @@ import com.mcmoddev.mineralogy.Mineralogy;
 import com.mcmoddev.mineralogy.init.MineralogyRegistry;
 import com.mcmoddev.mineralogy.ioc.MinIoC;
 import com.mcmoddev.mineralogy.lib.exceptions.ItemNotFoundException;
-import com.mcmoddev.mineralogy.lib.exceptions.TabNotFoundException;
-import com.mcmoddev.mineralogy.lib.interfaces.IDynamicTabProvider;
 
 public class RegistrationHelper {
 
@@ -39,15 +37,6 @@ public class RegistrationHelper {
         BlockItemPair pair = new BlockItemPair(block, item);
 
         IoC.register(BlockItemPair.class, pair, name, Mineralogy.MODID);
-
-        try {
-            if (addToTab) MinIoC.getInstance()
-                .resolve(IDynamicTabProvider.class)
-                .addToTab(block);
-        } catch (TabNotFoundException | ItemNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
 
         MineralogyRegistry.BlocksToRegister.put(oreDictionaryName, block);
         MineralogyRegistry.MineralogyBlockRegistry.put(name, pair);

@@ -6,9 +6,6 @@ import net.minecraft.util.ResourceLocation;
 
 import com.mcmoddev.mineralogy.Mineralogy;
 import com.mcmoddev.mineralogy.MineralogyConfig;
-import com.mcmoddev.mineralogy.lib.interfaces.IDynamicTabProvider;
-import com.mcmoddev.mineralogy.lib.interfaces.IDynamicTabProvider.DefaultTabGenerationMode;
-import com.mcmoddev.mineralogy.lib.util.DynamicTabProvider;
 
 /**
  * This is the IoC (Inversion of Control) container for Mineralogy
@@ -149,27 +146,6 @@ public class MinIoC {
     /**
      * create relationships between class/interface type and concretes
      */
-    public void wireup() {
-        // this line make a crash on startup
-        // this.register(ItemStack.class, new ItemStack(Items.iron_pickaxe), "defaultIcon", Mineralogy.MODID);
-
-        if (MineralogyConfig.groupCreativeTabItemsByType()) this.register(
-            IDynamicTabProvider.class,
-            new DynamicTabProvider().setTabItemMapping("Rock", "Chert")
-                .setTabItemMapping("Rock", "Gypsum")
-                .setTabItemMapping("Rock", "Ore")
-                .addTab("Item", true, Mineralogy.MODID)
-                .addTab("Stair", true, Mineralogy.MODID)
-                .addTab("Slab", true, Mineralogy.MODID)
-                .addTab("Wall", true, Mineralogy.MODID)
-                .setTabItemMapping("Stair", "RockStairs")
-                .setTabItemMapping("Slab", "RockSlab")
-                .setTabItemMapping("Wall", "RockWall"));
-        else this.register(
-            IDynamicTabProvider.class,
-            new DynamicTabProvider().setDefaultTabCreationLogic(DefaultTabGenerationMode.ByMod));
-
-    }
 
     public static MinIoC getInstance() {
         return getInstance(true);
@@ -179,7 +155,7 @@ public class MinIoC {
         if (_instance == null) {
             _instance = new MinIoC();
 
-            if (autoWirup) _instance.wireup();
+
         }
 
         return _instance;

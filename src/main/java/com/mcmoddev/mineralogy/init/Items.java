@@ -9,8 +9,6 @@ import com.mcmoddev.mineralogy.Mineralogy;
 import com.mcmoddev.mineralogy.ioc.MinIoC;
 import com.mcmoddev.mineralogy.items.MineralFertilizer;
 import com.mcmoddev.mineralogy.lib.exceptions.ItemNotFoundException;
-import com.mcmoddev.mineralogy.lib.exceptions.TabNotFoundException;
-import com.mcmoddev.mineralogy.lib.interfaces.IDynamicTabProvider;
 import com.mcmoddev.mineralogy.util.RegistrationHelper;
 
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -61,15 +59,6 @@ public class Items {
 
         Item item = RegistrationHelper.registerItem(new Item(), dustName)
             .setTextureName(Mineralogy.MODID + "." + dustName);
-
-        try {
-            MinIoC.getInstance()
-                .resolve(IDynamicTabProvider.class)
-                .addToTab(item);
-        } catch (TabNotFoundException | ItemNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
 
         MineralogyRegistry.ItemsToRegister.put(Constants.DUST + oreDictionaryName, item);
         MinIoC.getInstance()

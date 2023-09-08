@@ -12,8 +12,6 @@ import com.mcmoddev.mineralogy.blocks.Ore;
 import com.mcmoddev.mineralogy.blocks.Rock;
 import com.mcmoddev.mineralogy.ioc.MinIoC;
 import com.mcmoddev.mineralogy.lib.exceptions.ItemNotFoundException;
-import com.mcmoddev.mineralogy.lib.exceptions.TabNotFoundException;
-import com.mcmoddev.mineralogy.lib.interfaces.IDynamicTabProvider;
 import com.mcmoddev.mineralogy.util.BlockItemPair;
 import com.mcmoddev.mineralogy.util.RegistrationHelper;
 import com.mcmoddev.mineralogy.worldgen.OreSpawner;
@@ -113,15 +111,6 @@ public class Ores {
             oreWeightCount++);
 
         addBlock(oreDictionaryName, 0, oreDropItem);
-
-        try {
-            MinIoC.getInstance()
-                .resolve(IDynamicTabProvider.class)
-                .addToTab(oreBlock);
-        } catch (TabNotFoundException | ItemNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
 
         return oreBlock;
     }

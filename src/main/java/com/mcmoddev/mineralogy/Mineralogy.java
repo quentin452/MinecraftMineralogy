@@ -18,8 +18,6 @@ import com.mcmoddev.mineralogy.blocks.Ore;
 import com.mcmoddev.mineralogy.init.MineralogyRegistry;
 import com.mcmoddev.mineralogy.ioc.MinIoC;
 import com.mcmoddev.mineralogy.items.MineralFertilizer;
-import com.mcmoddev.mineralogy.lib.exceptions.TabNotFoundException;
-import com.mcmoddev.mineralogy.lib.interfaces.IDynamicTabProvider;
 import com.mcmoddev.mineralogy.util.MineralogyTab;
 import com.myname.mymodid.Tags;
 
@@ -40,7 +38,6 @@ import cpw.mods.fml.common.registry.GameRegistry;
 public class Mineralogy {
 
     public static Block chert;
-    public static Item mineralFertilizer;
     @Mod.Instance(Tags.MODID)
     public static Mineralogy instance;
 
@@ -199,15 +196,21 @@ public class Mineralogy {
         sulfur.setCreativeTab(Mineralogy.mineralogyTab);
         sulfur.setBlockTextureName(Mineralogy.MODID + ":sulfur_ore");
         GameRegistry.registerBlock(sulfur, "sulfur_ore");
+        DoubleSlab conglomeratesmoothbrick = new DoubleSlab(1.5f, 5f, 1);
 
-        // Slab Registry
-        SimpleSlab conglomeratesmoothbrick = new SimpleSlab(1.5f, 5f, 1);
-
-        conglomeratesmoothbrick.setBlockName("mineralogy_conglomerate_smooth_brick_slab");
+        conglomeratesmoothbrick.setBlockName("mineralogy_conglomerate_smooth_brick");
         conglomeratesmoothbrick.setCreativeTab(Mineralogy.mineralogyTab);
         conglomeratesmoothbrick.setBlockTextureName(Mineralogy.MODID + ":conglomerate_smooth_brick");
 
-        GameRegistry.registerBlock(conglomeratesmoothbrick, "conglomerate_smooth_brick_slab");
+        GameRegistry.registerBlock(conglomeratesmoothbrick, "conglomerate_smooth_brick");
+        // Slab Registry
+        SimpleSlab conglomeratesmoothbrickslab = new SimpleSlab(1.5f, 5f, 1);
+
+        conglomeratesmoothbrickslab.setBlockName("mineralogy_conglomerate_smooth_brick_slab");
+        conglomeratesmoothbrickslab.setCreativeTab(Mineralogy.mineralogyTab);
+        conglomeratesmoothbrickslab.setBlockTextureName(Mineralogy.MODID + ":conglomerate_smooth_brick");
+
+        GameRegistry.registerBlock(conglomeratesmoothbrickslab, "conglomerate_smooth_brick_slab");
 
         // Item Registry
         MineralFertilizer mineralFertilizer = new MineralFertilizer();
@@ -265,16 +268,5 @@ public class Mineralogy {
 
         MinIoC IoC = MinIoC.getInstance();
         ItemStack sulphurStack = new ItemStack(IoC.resolve(Item.class, Constants.SULFUR, Mineralogy.MODID));
-
-        try {
-            IDynamicTabProvider tabProvider = IoC.resolve(IDynamicTabProvider.class);
-
-            tabProvider.setTabIcons();
-
-            if (MineralogyConfig.groupCreativeTabItemsByType()) tabProvider.setIcon("Item", sulphurStack);
-
-        } catch (TabNotFoundException e) {
-            e.printStackTrace();
-        }
     }
 }

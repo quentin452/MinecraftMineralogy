@@ -12,7 +12,6 @@ import com.mcmoddev.mineralogy.blocks.*;
 import com.mcmoddev.mineralogy.data.Material;
 import com.mcmoddev.mineralogy.data.MaterialData;
 import com.mcmoddev.mineralogy.ioc.MinIoC;
-import com.mcmoddev.mineralogy.lib.interfaces.IDynamicTabProvider;
 import com.mcmoddev.mineralogy.tileentity.TileEntityRockFurnace;
 import com.mcmoddev.mineralogy.util.BlockItemPair;
 import com.mcmoddev.mineralogy.util.RegistrationHelper;
@@ -85,11 +84,9 @@ public class Blocks {
         RegistrationHelper.registerBlock(new RockSaltLamp(), "rocksaltlamp", "lampRocksalt");
         RegistrationHelper.registerBlock(new RockSaltStreetLamp(), "rocksaltstreetlamp", "lampRocksaltStreet", 16);
 
-        IDynamicTabProvider tabProvider = IoC.resolve(IDynamicTabProvider.class);
-
         for (int i = 0; i < 16; i++) {
-            if (MineralogyConfig.groupCreativeTabItemsByType())
-                tabProvider.setTabItemMapping("Item", Constants.DRYWALL + "_" + Constants.colorSuffixes[i]);
+           // if (MineralogyConfig.groupCreativeTabItemsByType())
+          //      tabProvider.setTabItemMapping("Item", Constants.DRYWALL + "_" + Constants.colorSuffixes[i]);
 
             drywalls[i] = RegistrationHelper.registerBlock(
                 new DryWall(

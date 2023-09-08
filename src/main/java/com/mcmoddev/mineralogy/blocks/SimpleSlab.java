@@ -42,6 +42,11 @@ public class SimpleSlab extends BlockSlab {
     }
 
     @Override
+    public int getLightOpacity(IBlockAccess world, int x, int y, int z) {
+        return 0;
+    }
+
+    @Override
     public boolean shouldSideBeRendered(IBlockAccess world, int x, int y, int z, int side) {
         return true;
     }
