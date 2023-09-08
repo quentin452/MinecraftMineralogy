@@ -1,6 +1,7 @@
 package com.mcmoddev.mineralogy.init;
 
 import com.mcmoddev.mineralogy.MineralogyLogger;
+import com.mcmoddev.mineralogy.blocks.Chalk;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -21,7 +22,6 @@ import com.mcmoddev.mineralogy.worldgen.OreSpawner;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 public class Ores {
-
     private static boolean initDone = false;
 
     private static int oreWeightCount = 20;
@@ -60,6 +60,7 @@ public class Ores {
             MineralogyConfig.config()
                 .getInt("sulfur_ore.quantity", ORES, 16, 0, 63, "Size of ore deposit"));
 
+
         addOre(
             Constants.PHOSPHOROUS,
             phosphorousPowder,
@@ -75,6 +76,7 @@ public class Ores {
             MineralogyConfig.config()
                 .getInt("phosphorous_ore.quantity", ORES, 16, 0, 63, "Size of ore deposit"));
 
+
         addOre(
             Constants.NITRATE,
             nitratePowder,
@@ -89,6 +91,7 @@ public class Ores {
                 .getFloat("nitrate_ore.frequency", ORES, 1, 0, 63, "Number of ore deposits per chunk"),
             MineralogyConfig.config()
                 .getInt("nitrate_ore.quantity", ORES, 16, 0, 63, "Size of ore deposit"));
+
 
         MineralogyConfig.config()
             .save();

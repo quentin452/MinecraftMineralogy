@@ -3,16 +3,13 @@ package com.mcmoddev.mineralogy;
 // DON'T FORGET TO UPDATE mcmod.info FILE!!!
 
 import com.mcmoddev.mineralogy.blocks.*;
-import com.mcmoddev.mineralogy.init.Blocks;
+import com.mcmoddev.mineralogy.blocks.Ore;
 import com.mcmoddev.mineralogy.items.MineralFertilizer;
 import com.mcmoddev.mineralogy.util.MineralogyTab;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 
 import org.apache.logging.log4j.LogManager;
@@ -22,7 +19,6 @@ import com.mcmoddev.mineralogy.init.MineralogyRegistry;
 import com.mcmoddev.mineralogy.ioc.MinIoC;
 import com.mcmoddev.mineralogy.lib.exceptions.TabNotFoundException;
 import com.mcmoddev.mineralogy.lib.interfaces.IDynamicTabProvider;
-import com.mcmoddev.mineralogy.worldgen.StoneReplacer;
 import com.myname.mymodid.Tags;
 
 import cpw.mods.fml.common.Mod;
@@ -123,21 +119,6 @@ public class Mineralogy {
 
         GameRegistry.registerBlock(gypsum, "gypsum");
 
-        String name = "iron";
-        Item oreDrop = Item.getItemFromBlock(net.minecraft.init.Blocks.iron_ore);
-
-        int min = 2;
-        int max = 5;
-        int level = 1;
-
-        Ore ore = new Ore(name, oreDrop, min, max, level);
-
-        ore.setBlockName("mineralogy_ore");
-        ore.setCreativeTab(Mineralogy.mineralogyTab);
-        ore.setBlockTextureName(Mineralogy.MODID + ":ore");
-
-        GameRegistry.registerBlock(ore, "ore");
-
         Rock rock = new Rock(
             true,
             1.5f,
@@ -193,14 +174,14 @@ public class Mineralogy {
         rockSaltLamp.setCreativeTab(Mineralogy.mineralogyTab);
         rockSaltLamp.setBlockTextureName(Mineralogy.MODID + ":rock_salt_lamp");
 
-        GameRegistry.registerBlock(rockSaltLamp, "rock_salt_lamp");
+        GameRegistry.registerBlock(rockSaltLamp, "rock_salt_lamp")
+        ;
         RockSaltStreetLamp rockSaltStreetLamp = new RockSaltStreetLamp();
-
-        rockSaltStreetLamp.setBlockName("mineralogy_rock_salt_street_lamp");
+        rockSaltStreetLamp.setBlockName("mineralogy_rocksaltstreetlamp");
         rockSaltStreetLamp.setCreativeTab(Mineralogy.mineralogyTab);
-        rockSaltStreetLamp.setBlockTextureName(Mineralogy.MODID + ":rock_salt_street_lamp");
+        rockSaltStreetLamp.setBlockTextureName(Mineralogy.MODID + ":rocksaltstreetlamp");
 
-        GameRegistry.registerBlock(rockSaltStreetLamp, "rock_salt_street_lamp");
+        GameRegistry.registerBlock(rockSaltStreetLamp, "rocksaltstreetlamp");
         RockSlab rockSlab = new RockSlab();
 
         rockSlab.setBlockName("mineralogy_rock_slab");
@@ -243,6 +224,33 @@ public class Mineralogy {
         soil.setBlockTextureName(Mineralogy.MODID + ":soil");
 
         GameRegistry.registerBlock(soil, "soil");
+        MinIoC IoC = MinIoC.getInstance();
+        Item nitratePowder = IoC.resolve(Item.class, "dustNitrate", Mineralogy.MODID);
+        Ore nitrate = new Ore(Constants.NITRATE, nitratePowder, 1, 4, 0);
+
+        nitrate.setBlockName("nitrate_ore");
+        nitrate.setCreativeTab(Mineralogy.mineralogyTab);
+        nitrate.setBlockTextureName(Mineralogy.MODID + ":nitrate_ore");
+        GameRegistry.registerBlock(nitrate, "nitrate_ore");
+
+        Item phosphorousPowder = IoC.resolve(Item.class, "dustPhosphorous", Mineralogy.MODID);
+
+        Ore phosphorous = new Ore(Constants.PHOSPHOROUS, phosphorousPowder, 1, 4, 0);
+
+        phosphorous.setBlockName("phosphorous_ore");
+        phosphorous.setCreativeTab(Mineralogy.mineralogyTab);
+        phosphorous.setBlockTextureName(Mineralogy.MODID + ":phosphorous_ore");
+
+        GameRegistry.registerBlock(phosphorous, "phosphorous_ore");
+
+        Item sulfurPowder = IoC.resolve(Item.class, "dustSulfur", Mineralogy.MODID);
+
+        Ore sulfur = new Ore(Constants.SULFUR, sulfurPowder, 1, 4, 0);
+
+        sulfur.setBlockName("sulfur_ore");
+        sulfur.setCreativeTab(Mineralogy.mineralogyTab);
+        sulfur.setBlockTextureName(Mineralogy.MODID + ":sulfur_ore");
+        GameRegistry.registerBlock(sulfur, "sulfur_ore");
 
         // Item Registry
         MineralFertilizer mineralFertilizer = new MineralFertilizer();

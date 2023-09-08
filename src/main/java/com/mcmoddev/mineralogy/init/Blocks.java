@@ -3,7 +3,6 @@ package com.mcmoddev.mineralogy.init;
 import com.mcmoddev.mineralogy.MineralogyLogger;
 import net.minecraft.block.Block;
 import net.minecraft.init.Items;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 import com.mcmoddev.mineralogy.Constants;
