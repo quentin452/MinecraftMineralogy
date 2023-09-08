@@ -69,6 +69,14 @@ public class Mineralogy {
         MinecraftForge.EVENT_BUS.register(com.mcmoddev.mineralogy.init.Recipes.class);
 
         // Block Registry
+        Rock dolomite = new Rock(true, 1.5f, 5f, 1, soundTypeStone);
+        
+        dolomite.setBlockName("mineralogy_dolomite");
+        dolomite.setCreativeTab(Mineralogy.mineralogyTab);
+        dolomite.setBlockTextureName(Mineralogy.MODID + ":dolomite");
+
+        GameRegistry.registerBlock(dolomite, "dolomite");
+
         Chert chertBlock = new Chert();
 
         chertBlock.setBlockName("mineralogy_chert");
