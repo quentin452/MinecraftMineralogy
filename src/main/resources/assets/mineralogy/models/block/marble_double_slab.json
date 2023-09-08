@@ -1,8 +1,0 @@
-{
-  "parent": "mineralogy:block/brick",
-  "textures": {
-    "top": "mineralogy:blocks/marble",
-    "bottom": "mineralogy:blocks/marble",
-    "side": "mineralogy:blocks/marble"
-  }
-}

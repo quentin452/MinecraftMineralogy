@@ -1,8 +1,0 @@
-{
-  "parent": "block/half_slab",
-  "textures": {
-    "bottom": "mineralogy:blocks/quartzite",
-    "top": "mineralogy:blocks/quartzite",
-    "side": "mineralogy:blocks/quartzite"
-  }
-}

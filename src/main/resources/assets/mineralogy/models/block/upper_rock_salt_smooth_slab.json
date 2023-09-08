@@ -1,8 +1,0 @@
-{
-  "parent": "block/upper_slab",
-  "textures": {
-    "bottom": "mineralogy:blocks/rock_salt_smooth",
-    "top": "mineralogy:blocks/rock_salt_smooth",
-    "side": "mineralogy:blocks/rock_salt_smooth"
-  }
-}

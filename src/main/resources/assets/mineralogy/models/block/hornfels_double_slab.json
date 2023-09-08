@@ -1,8 +1,0 @@
-{
-  "parent": "mineralogy:block/brick",
-  "textures": {
-    "top": "mineralogy:blocks/hornfels",
-    "bottom": "mineralogy:blocks/hornfels",
-    "side": "mineralogy:blocks/hornfels"
-  }
-}

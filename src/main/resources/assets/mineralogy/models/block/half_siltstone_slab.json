@@ -1,8 +1,0 @@
-{
-  "parent": "block/half_slab",
-  "textures": {
-    "bottom": "mineralogy:blocks/siltstone",
-    "top": "mineralogy:blocks/siltstone",
-    "side": "mineralogy:blocks/siltstone"
-  }
-}

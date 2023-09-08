@@ -1,8 +1,0 @@
-{
-  "parent": "mineralogy:block/brick",
-  "textures": {
-    "top": "mineralogy:blocks/basaltic_glass",
-    "bottom": "mineralogy:blocks/basaltic_glass",
-    "side": "mineralogy:blocks/basaltic_glass"
-  }
-}

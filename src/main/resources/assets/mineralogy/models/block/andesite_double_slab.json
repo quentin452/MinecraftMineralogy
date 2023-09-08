@@ -1,8 +1,0 @@
-{
-  "parent": "mineralogy:block/brick",
-  "textures": {
-    "top": "mineralogy:blocks/andesite",
-    "bottom": "mineralogy:blocks/andesite",
-    "side": "mineralogy:blocks/andesite"
-  }
-}
