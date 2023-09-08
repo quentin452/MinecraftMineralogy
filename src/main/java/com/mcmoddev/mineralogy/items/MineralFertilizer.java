@@ -1,17 +1,14 @@
 package com.mcmoddev.mineralogy.items;
 
-import com.mcmoddev.mineralogy.Mineralogy;
-import com.mcmoddev.mineralogy.blocks.Chert;
-import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemDye;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-import net.minecraftforge.common.MinecraftForge;
 
 public class MineralFertilizer extends Item {
+
     public MineralFertilizer() {
         super();
     }

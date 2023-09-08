@@ -47,7 +47,7 @@ public class Recipes {
             .addShapelessRecipe(gunpowder, new ItemStack(Items.sugar), new ItemStack(nitrate), new ItemStack(sulfur));
 
         ItemStack fertilizer = new ItemStack(mineralFertilizer, 1);
-        ItemStack dustPhosphorous = new ItemStack(Block.getBlockFromName("dustPhosphorous"),1);
+        ItemStack dustPhosphorous = new ItemStack(Block.getBlockFromName("dustPhosphorous"), 1);
         ItemStack nitrate2 = new ItemStack(Block.getBlockFromName(Constants.DUST_NITRATE), 1);
         GameRegistry.addShapelessRecipe(fertilizer, nitrate2, dustPhosphorous);
 

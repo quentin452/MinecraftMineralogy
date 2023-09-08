@@ -1,6 +1,5 @@
 package com.mcmoddev.mineralogy.init;
 
-import com.mcmoddev.mineralogy.MineralogyLogger;
 import net.minecraft.block.Block;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -8,6 +7,7 @@ import net.minecraft.item.ItemStack;
 import com.mcmoddev.mineralogy.Constants;
 import com.mcmoddev.mineralogy.Mineralogy;
 import com.mcmoddev.mineralogy.MineralogyConfig;
+import com.mcmoddev.mineralogy.MineralogyLogger;
 import com.mcmoddev.mineralogy.blocks.*;
 import com.mcmoddev.mineralogy.data.Material;
 import com.mcmoddev.mineralogy.data.MaterialData;
@@ -109,7 +109,7 @@ public class Blocks {
             ItemStack dyeItemStack = new ItemStack(Items.dye, 1, i);
             ItemStack outputItemStack = new ItemStack(drywalls[i].PairedItem, 1);
             ItemStack drywallwhite = new ItemStack(Block.getBlockFromName(Constants.DRYWALL_WHITE), 1);
-            GameRegistry.addShapelessRecipe(outputItemStack, drywallItemStack,drywallwhite, dyeItemStack);
+            GameRegistry.addShapelessRecipe(outputItemStack, drywallItemStack, drywallwhite, dyeItemStack);
         }
 
         initDone = true;
@@ -128,7 +128,7 @@ public class Blocks {
         ItemStack outputItemStack = new ItemStack(blankRelief.PairedItem, 16);
         try {
             GameRegistry.addShapedRecipe(outputItemStack, "xxx", "xxx", "xxx", 'x', oreDictName);
-        } catch(NullPointerException e) {
+        } catch (NullPointerException e) {
             MineralogyLogger.LOGGER.error("Error adding recipe", e);
         }
         final BlockItemPair axeRelief = RegistrationHelper.registerBlock(
@@ -160,7 +160,7 @@ public class Blocks {
 
         try {
             GameRegistry.addShapedRecipe(outputItemStack10, "x x", "   ", "x x", 'x', ingredientBlock);
-        } catch(NullPointerException e) {
+        } catch (NullPointerException e) {
             MineralogyLogger.LOGGER.error("Error adding recipe", e);
         }
         final BlockItemPair hammerRelief = RegistrationHelper.registerBlock(
@@ -400,15 +400,12 @@ public class Blocks {
                 new DoubleSlab(
                     (float) materialType.hardness,
                     (float) materialType.blastResistance,
-                    materialType.toolHardnessLevel,
-                    rockSlabPair.PairedBlock
-                ),
+                    materialType.toolHardnessLevel),
                 name + "_double_" + Constants.SLAB,
                 Constants.SLAB + "Double" + materialType.materialName,
                 false,
                 64,
-                false
-            );
+                false);
             if (MineralogyConfig.generateRockFurnace()) {
                 rockFurnacePair = RegistrationHelper.registerBlock(
                     new RockFurnace(
@@ -524,8 +521,7 @@ public class Blocks {
                     new DoubleSlab(
                         (float) materialType.hardness,
                         (float) materialType.blastResistance,
-                        materialType.toolHardnessLevel,
-                        brickSlabPair.PairedBlock),
+                        materialType.toolHardnessLevel),
                     name + "_" + Constants.BRICK + "_double_" + Constants.SLAB,
                     Constants.SLAB + "Double" + materialType.materialName + "Brick",
                     false,
@@ -666,8 +662,7 @@ public class Blocks {
                     new DoubleSlab(
                         (float) materialType.hardness,
                         (float) materialType.blastResistance,
-                        materialType.toolHardnessLevel,
-                        smoothSlabPair.PairedBlock),
+                        materialType.toolHardnessLevel),
                     name + "_" + Constants.SMOOTH + "_double_" + Constants.SLAB,
                     Constants.SLAB + "Double" + materialType.materialName + "Smooth",
                     false,
@@ -797,8 +792,7 @@ public class Blocks {
                         new DoubleSlab(
                             (float) materialType.hardness,
                             (float) materialType.blastResistance,
-                            materialType.toolHardnessLevel,
-                            smoothBrickSlabPair.PairedBlock),
+                            materialType.toolHardnessLevel),
                         name + "_" + Constants.SMOOTH + "_" + Constants.BRICK + "_double_" + Constants.SLAB,
                         Constants.SLAB + "Double" + materialType.materialName + "SmoothBrick",
                         false,

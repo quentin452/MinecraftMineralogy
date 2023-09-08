@@ -1,27 +1,15 @@
 package com.mcmoddev.mineralogy.blocks;
 
 import java.util.ArrayList;
-import java.util.Random;
 
-import com.mcmoddev.mineralogy.init.Blocks;
-import com.mcmoddev.mineralogy.util.MineralogyTab;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.IIcon;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 
-import com.mcmoddev.mineralogy.Mineralogy;
-import net.minecraftforge.common.MinecraftForge;
-
-
 public class Chert extends Rock {
+
     public Chert() {
         super(false, 1.5F, 10.0F, 1, Block.soundTypeStone);
     }

@@ -11,9 +11,11 @@ import net.minecraft.world.World;
 public class RockSlab extends net.minecraft.block.Block {
 
     private String _doubleSlab = "";
+
     public RockSlab() {
         this(1.5f, 5f, 1, soundTypeStone);
     }
+
     private static final float THICKNESS = 0.5f;
 
     private static final AxisAlignedBB[] BOXES = new AxisAlignedBB[EnumFacing.values().length];

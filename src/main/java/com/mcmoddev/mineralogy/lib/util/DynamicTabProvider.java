@@ -3,7 +3,6 @@ package com.mcmoddev.mineralogy.lib.util;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Objects;
 import java.util.Optional;
 
 import net.minecraft.block.Block;
@@ -40,7 +39,7 @@ public final class DynamicTabProvider implements IDynamicTabProvider {
     private MMDCreativeTab getTabByName(String tabName) {
         MMDCreativeTab tab = tabs.get(tabName);
 
-        if(tab == null) {
+        if (tab == null) {
             tab = tabs.get("default");
         }
 
@@ -52,18 +51,18 @@ public final class DynamicTabProvider implements IDynamicTabProvider {
 
         MMDCreativeTab tab = getTabByName("default");
 
-   //     ItemStack currentIcon = tab.createIcon();
+        // ItemStack currentIcon = tab.createIcon();
 
-      //  Item iconItem = currentIcon.getItem();
+        // Item iconItem = currentIcon.getItem();
 
         if (FMLCommonHandler.instance()
             .getEffectiveSide() == Side.CLIENT) {
 
-            //   assert iconItem != null;
-           // if (iconItem.getClass() == Objects.requireNonNull(defaultIcon.getItem())
-          //      .getClass()) {
-         //       tab.setIconItem(block);
-         //   }
+            // assert iconItem != null;
+            // if (iconItem.getClass() == Objects.requireNonNull(defaultIcon.getItem())
+            // .getClass()) {
+            // tab.setIconItem(block);
+            // }
 
             block.setCreativeTab(tab);
 
@@ -81,14 +80,14 @@ public final class DynamicTabProvider implements IDynamicTabProvider {
         if (FMLCommonHandler.instance()
             .getEffectiveSide() == Side.CLIENT) {
 
-      //      ItemStack currentIcon = tab.createIcon();
-     //       Item iconItem = currentIcon.getItem();
+            // ItemStack currentIcon = tab.createIcon();
+            // Item iconItem = currentIcon.getItem();
 
-       //     assert iconItem != null;
-       //     if (iconItem.getClass() == Objects.requireNonNull(defaultIcon.getItem())
-        //        .getClass()) {
-        //        tab.setIconItem(item);
-       //     }
+            // assert iconItem != null;
+            // if (iconItem.getClass() == Objects.requireNonNull(defaultIcon.getItem())
+            // .getClass()) {
+            // tab.setIconItem(item);
+            // }
 
         }
 

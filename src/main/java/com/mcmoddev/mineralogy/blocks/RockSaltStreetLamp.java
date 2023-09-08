@@ -5,16 +5,17 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
 public class RockSaltStreetLamp extends Block {
+
     private static TextureMap textureMap;
     protected static AxisAlignedBB STANDING_AABB = getStandingBB();
     private static final String TEXTURE_SIDE = "wroughtiron_lamp";
     private static final String TEXTURE_TOP = "rocksalt_lamp";
     private static final String TEXTURE_PARTICLE = "wroughtiron_lamp";
+
     protected static AxisAlignedBB getStandingBB() {
         return AxisAlignedBB.getBoundingBox(
             0.4000000059604645D,
@@ -76,10 +77,10 @@ public class RockSaltStreetLamp extends Block {
             worldIn.setBlockToAir(x, y, z);
         }
     }
+
     @Override
     public int getRenderType() {
         return 1;
     }
-
 
 }

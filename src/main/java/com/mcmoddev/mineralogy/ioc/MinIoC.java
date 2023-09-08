@@ -2,8 +2,6 @@ package com.mcmoddev.mineralogy.ioc;
 
 import java.util.concurrent.ConcurrentHashMap;
 
-import net.minecraft.init.Items;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
 import com.mcmoddev.mineralogy.Mineralogy;
@@ -153,7 +151,7 @@ public class MinIoC {
      */
     public void wireup() {
         // this line make a crash on startup
-        //this.register(ItemStack.class, new ItemStack(Items.iron_pickaxe), "defaultIcon", Mineralogy.MODID);
+        // this.register(ItemStack.class, new ItemStack(Items.iron_pickaxe), "defaultIcon", Mineralogy.MODID);
 
         if (MineralogyConfig.groupCreativeTabItemsByType()) this.register(
             IDynamicTabProvider.class,

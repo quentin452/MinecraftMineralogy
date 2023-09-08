@@ -1,7 +1,5 @@
 package com.mcmoddev.mineralogy.init;
 
-import com.mcmoddev.mineralogy.MineralogyLogger;
-import com.mcmoddev.mineralogy.blocks.Chalk;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -9,6 +7,7 @@ import net.minecraft.item.ItemStack;
 import com.mcmoddev.mineralogy.Constants;
 import com.mcmoddev.mineralogy.Mineralogy;
 import com.mcmoddev.mineralogy.MineralogyConfig;
+import com.mcmoddev.mineralogy.MineralogyLogger;
 import com.mcmoddev.mineralogy.blocks.Ore;
 import com.mcmoddev.mineralogy.blocks.Rock;
 import com.mcmoddev.mineralogy.ioc.MinIoC;
@@ -22,6 +21,7 @@ import com.mcmoddev.mineralogy.worldgen.OreSpawner;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 public class Ores {
+
     private static boolean initDone = false;
 
     private static int oreWeightCount = 20;
@@ -31,72 +31,69 @@ public class Ores {
     }
 
     public static void Init() {
-        try{
-        if (initDone) {
-            return;
-        }
+        try {
+            if (initDone) {
+                return;
+            }
 
-        MinIoC IoC = MinIoC.getInstance();
+            MinIoC IoC = MinIoC.getInstance();
 
-        final String ORES = "ores";
+            final String ORES = "ores";
 
-        Item sulfurPowder = IoC.resolve(Item.class, "dustSulfur", Mineralogy.MODID);
-        Item phosphorousPowder = IoC.resolve(Item.class, "dustPhosphorous", Mineralogy.MODID);
-        Item nitratePowder = IoC.resolve(Item.class, "dustNitrate", Mineralogy.MODID);
+            Item sulfurPowder = IoC.resolve(Item.class, "dustSulfur", Mineralogy.MODID);
+            Item phosphorousPowder = IoC.resolve(Item.class, "dustPhosphorous", Mineralogy.MODID);
+            Item nitratePowder = IoC.resolve(Item.class, "dustNitrate", Mineralogy.MODID);
 
-        // register ores
-        addOre(
-            Constants.SULFUR,
-            sulfurPowder,
-            1,
-            4,
-            0,
-            MineralogyConfig.config()
-                .getInt("sulfur_ore.minY", ORES, 16, 1, 255, "Minimum ore spawn height"),
-            MineralogyConfig.config()
-                .getInt("sulfur_ore.maxY", ORES, 64, 1, 255, "Maximum ore spawn height"),
-            MineralogyConfig.config()
-                .getFloat("sulfur_ore.frequency", ORES, 1, 0, 63, "Number of ore deposits per chunk"),
-            MineralogyConfig.config()
-                .getInt("sulfur_ore.quantity", ORES, 16, 0, 63, "Size of ore deposit"));
+            // register ores
+            addOre(
+                Constants.SULFUR,
+                sulfurPowder,
+                1,
+                4,
+                0,
+                MineralogyConfig.config()
+                    .getInt("sulfur_ore.minY", ORES, 16, 1, 255, "Minimum ore spawn height"),
+                MineralogyConfig.config()
+                    .getInt("sulfur_ore.maxY", ORES, 64, 1, 255, "Maximum ore spawn height"),
+                MineralogyConfig.config()
+                    .getFloat("sulfur_ore.frequency", ORES, 1, 0, 63, "Number of ore deposits per chunk"),
+                MineralogyConfig.config()
+                    .getInt("sulfur_ore.quantity", ORES, 16, 0, 63, "Size of ore deposit"));
 
+            addOre(
+                Constants.PHOSPHOROUS,
+                phosphorousPowder,
+                1,
+                4,
+                0,
+                MineralogyConfig.config()
+                    .getInt("phosphorous_ore.minY", ORES, 16, 1, 255, "Minimum ore spawn height"),
+                MineralogyConfig.config()
+                    .getInt("phosphorous_ore.maxY", ORES, 64, 1, 255, "Maximum ore spawn height"),
+                MineralogyConfig.config()
+                    .getFloat("phosphorous_ore.frequency", ORES, 1, 0, 63, "Number of ore deposits per chunk"),
+                MineralogyConfig.config()
+                    .getInt("phosphorous_ore.quantity", ORES, 16, 0, 63, "Size of ore deposit"));
 
-        addOre(
-            Constants.PHOSPHOROUS,
-            phosphorousPowder,
-            1,
-            4,
-            0,
-            MineralogyConfig.config()
-                .getInt("phosphorous_ore.minY", ORES, 16, 1, 255, "Minimum ore spawn height"),
-            MineralogyConfig.config()
-                .getInt("phosphorous_ore.maxY", ORES, 64, 1, 255, "Maximum ore spawn height"),
-            MineralogyConfig.config()
-                .getFloat("phosphorous_ore.frequency", ORES, 1, 0, 63, "Number of ore deposits per chunk"),
-            MineralogyConfig.config()
-                .getInt("phosphorous_ore.quantity", ORES, 16, 0, 63, "Size of ore deposit"));
+            addOre(
+                Constants.NITRATE,
+                nitratePowder,
+                1,
+                4,
+                0,
+                MineralogyConfig.config()
+                    .getInt("nitrate_ore.minY", ORES, 16, 1, 255, "Minimum ore spawn height"),
+                MineralogyConfig.config()
+                    .getInt("nitrate_ore.maxY", ORES, 64, 1, 255, "Maximum ore spawn height"),
+                MineralogyConfig.config()
+                    .getFloat("nitrate_ore.frequency", ORES, 1, 0, 63, "Number of ore deposits per chunk"),
+                MineralogyConfig.config()
+                    .getInt("nitrate_ore.quantity", ORES, 16, 0, 63, "Size of ore deposit"));
 
-
-        addOre(
-            Constants.NITRATE,
-            nitratePowder,
-            1,
-            4,
-            0,
             MineralogyConfig.config()
-                .getInt("nitrate_ore.minY", ORES, 16, 1, 255, "Minimum ore spawn height"),
-            MineralogyConfig.config()
-                .getInt("nitrate_ore.maxY", ORES, 64, 1, 255, "Maximum ore spawn height"),
-            MineralogyConfig.config()
-                .getFloat("nitrate_ore.frequency", ORES, 1, 0, 63, "Number of ore deposits per chunk"),
-            MineralogyConfig.config()
-                .getInt("nitrate_ore.quantity", ORES, 16, 0, 63, "Size of ore deposit"));
+                .save();
 
-
-        MineralogyConfig.config()
-            .save();
-
-        initDone = true;
+            initDone = true;
         } catch (NullPointerException e) {
             MineralogyLogger.LOGGER.error("Error loading configuration", e);
         }
@@ -142,7 +139,7 @@ public class Ores {
         ItemStack dustItemStack = new ItemStack(dust);
 
         ItemStack outputItemStack = new ItemStack(pair.PairedItem);
-        GameRegistry.addShapedRecipe(outputItemStack, new String[]{"xxx", "xxx", "xxx"}, 'x', dustItemStack);
+        GameRegistry.addShapedRecipe(outputItemStack, new String[] { "xxx", "xxx", "xxx" }, 'x', dustItemStack);
 
         ItemStack dustOutput = new ItemStack(dust, 9);
         GameRegistry.addShapelessRecipe(dustOutput, blockItemStack, blockItemStack);

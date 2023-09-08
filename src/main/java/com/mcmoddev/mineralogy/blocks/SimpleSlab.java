@@ -3,28 +3,48 @@ package com.mcmoddev.mineralogy.blocks;
 import java.util.ArrayList;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockSlab;
+import net.minecraft.block.BlockStoneSlab;
 import net.minecraft.block.material.Material;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.StatList;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.event.ForgeEventFactory;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class DoubleSlab extends Block {
+public class SimpleSlab extends BlockSlab {
 
-    public DoubleSlab(float hardness, float blastResistance, int toolHardnessLevel) {
-        super(Material.rock);
+    public SimpleSlab(float hardness, float blastResistance, int toolHardnessLevel) {
+        super(false,Material.rock);
         this.setHardness(hardness);
         this.setResistance(blastResistance);
         this.setStepSound(Block.soundTypeStone);
         this.setHarvestLevel("pickaxe", toolHardnessLevel);
     }
+    protected ItemStack createStackedBlock(int meta)
+    {
+        return new ItemStack(Item.getItemFromBlock(this), 2, meta & 7);
+    }
+    @Override
+    public String func_150002_b(int p_150002_1_) {
+        return null;
+    }
+    @Override
+    public boolean isOpaqueCube() {
+        return false;
+    }
 
+    @Override
+    public boolean shouldSideBeRendered(IBlockAccess world, int x, int y, int z, int side) {
+        return true;
+    }
     @Override
     @SideOnly(Side.CLIENT)
     public Item getItem(World worldIn, int x, int y, int z) {
@@ -37,7 +57,7 @@ public class DoubleSlab extends Block {
         player.addExhaustion(0.025F);
 
         if (this.canSilkHarvest(worldIn, player, x, y, z, meta) && EnchantmentHelper.getSilkTouchModifier(player)) {
-            ArrayList<ItemStack> items = new ArrayList<ItemStack>();
+            ArrayList<ItemStack> items = new ArrayList<>();
             ItemStack itemstack = this.createStackedBlock(meta);
 
             if (itemstack != null) {
@@ -57,7 +77,7 @@ public class DoubleSlab extends Block {
     }
 
     public ArrayList<ItemStack> getDrops(World world, int x, int y, int z, int metadata, int fortune) {
-        ArrayList<ItemStack> ret = new ArrayList<ItemStack>();
+        ArrayList<ItemStack> ret = new ArrayList<>();
 
         int count = quantityDropped(metadata, fortune, world.rand);
         for (int i = 0; i < count; i++) {
