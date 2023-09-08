@@ -1,7 +1,13 @@
 package cyano.mineralogy.worldgen;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -15,24 +21,22 @@ public class Geology {
     private final PerlinNoise2D geomeNoiseLayer;
     private final PerlinNoise2D rockNoiseLayer;
     private final long seed;
-
     private final double geomeSize;
 
-    /** random implementation */
-    private static final int multiplier = 1103515245;
-    /** random implementation */
-    private static final int addend = 12345;
-    /** random implementation */
-    private static final int mask = (1 << 31) - 1;
-    /** used to reduce game-time computation by pregenerating random numbers */
     private final short[] whiteNoiseArray;
 
-    /**
-     *
-     * @param seed          World seed
-     * @param geomeSize     Approximate size of rock type layers (should be much bigger than <code>rockLayerSize</code>
-     * @param rockLayerSize Approximate diameter of layers in the X-Z plane
-     */
+    private final Map<Long, float[]> geomeCache = new ConcurrentHashMap<>();
+    private final Map<Long, float[]> rockCache = new ConcurrentHashMap<>();
+
+    // Cache local pour les valeurs de bruit
+    private final Map<Long, float[]> localGeomeCache = new ConcurrentHashMap<>();
+    private final Map<Long, float[]> localRockCache = new ConcurrentHashMap<>();
+
+    // Pool de threads pour les calculs
+    private final ExecutorService threadPool = Executors.newFixedThreadPool(
+        Runtime.getRuntime()
+            .availableProcessors());
+
     public Geology(long seed, double geomeSize, double rockLayerSize) {
         this.seed = seed;
         int rockLayerUndertones = 4;
@@ -52,86 +56,99 @@ public class Geology {
         }
     }
 
-    /**
-     * This method gets the stone replacement for a given coordinate. It does not
-     * check whether there should be stone at the given coordinate, just what
-     * block to put there if there were to be stone at the given coordinate.
-     *
-     * @param x X coordinate (block coordinate space)
-     * @param y Y coordinate (block coordinate space)
-     * @param z Z coordinate (block coordinate space)
-     * @return A Block object from this mod's registry of stones
-     */
     public Block getStoneAt(int x, int y, int z) {
-        // new method: 2D perlin noise instead of 3D
-        double[] xs = { x };
-        double[] zs = { z };
-        float[] geomeValues = geomeNoiseLayer.valueAt(xs, zs);
+        long key = ((long) x << 32) | ((long) z & 0xFFFFFFFFL);
+        float[] geomeValues = localGeomeCache.computeIfAbsent(key, k -> {
+            double[] xs = { x };
+            double[] zs = { z };
+            return geomeNoiseLayer.valueAt(xs, zs);
+        });
 
         float geome = geomeValues[0];
 
-        float[] rockValues = rockNoiseLayer.valueAt(xs, zs);
+        float[] rockValues = localRockCache.computeIfAbsent(key, k -> {
+            double[] xs = { x };
+            double[] zs = { z };
+            return rockNoiseLayer.valueAt(xs, zs);
+        });
+
         int rv = (int) rockValues[0] + y;
 
         if (geome < -64) {
-            // RockType.IGNEOUS;
             return pickBlockFromList(rv, Mineralogy.igneousStones);
         } else if (geome < 64) {
-            // RockType.METAMORPHIC;
             return pickBlockFromList(rv, Mineralogy.metamorphicStones);
         } else {
-            // RockType.SEDIMENTARY;
             return pickBlockFromList(rv, Mineralogy.sedimentaryStones);
         }
     }
 
     public void replaceStoneInChunk(int chunkX, int chunkZ, Block[] blockBuffer) {
-        /*
-         * if(chunkZ % 4 != 0){
-         * for(int i = 0; i < blockBuffer.length; i++){blockBuffer[i] = Blocks.air;}
-         * }
-         * //
-         */
         int height = blockBuffer.length / 256;
         int xOffset = chunkX << 4;
         int zOffset = chunkZ << 4;
+
+        // Liste des tâches pour le pool de threads
+        List<Callable<Void>> tasks = new ArrayList<>();
+
         for (int dx = 0; dx < 16; dx++) {
             int x = xOffset | dx;
             for (int dz = 0; dz < 16; dz++) {
                 int z = zOffset | dz;
                 int indexBase = (dx * 16 + dz) * height;
-                int y = height - 1;
-                while (y > 0 && blockBuffer[indexBase + y] == Blocks.air) {
-                    y--;
+                final int[] y = { height - 1 };
+                while (y[0] > 0 && blockBuffer[indexBase + y[0]] == Blocks.air) {
+                    y[0]--;
                 }
-                double[] xs = { x };
-                double[] zs = { z };
-                float[] rockValues = rockNoiseLayer.valueAt(xs, zs);
-                float[] geomeValues = geomeNoiseLayer.valueAt(xs, zs);
 
-                int baseRockVal = (int) rockValues[0];
-                int gbase = (int) geomeValues[0];
+                // Crée une nouvelle tâche pour calculer les valeurs de bruit
+                Callable<Void> task = Executors.callable(() -> {
+                    long key = ((long) x << 32) | ((long) z & 0xFFFFFFFFL);
+                    float[] rockValues = localRockCache.computeIfAbsent(key, k -> {
+                        double[] xs = { x };
+                        double[] zs = { z };
+                        return rockNoiseLayer.valueAt(xs, zs);
+                    });
 
-                // Block[] column = this.getStoneColumn(xOffset | dx, zOffset | dz, y);
-                for (; y > 0; y--) {
-                    int i = indexBase + y;
-                    if (blockBuffer[i] == Blocks.stone) {
-                        int geome = gbase + y;
-                        if (geome < -32) {
-                            // RockType.IGNEOUS;
-                            blockBuffer[i] = pickBlockFromList(baseRockVal + y, Mineralogy.igneousStones);
-                        } else if (geome < 32) {
-                            // RockType.METAMORPHIC;
-                            blockBuffer[i] = pickBlockFromList(baseRockVal + y + 3, Mineralogy.metamorphicStones);
-                        } else {
-                            // RockType.SEDIMENTARY;
-                            blockBuffer[i] = pickBlockFromList(baseRockVal + y + 5, Mineralogy.sedimentaryStones);
+                    float[] geomeValues = localGeomeCache.computeIfAbsent(key, k -> {
+                        double[] xs = { x };
+                        double[] zs = { z };
+                        return geomeNoiseLayer.valueAt(xs, zs);
+                    });
+
+                    int baseRockVal = (int) rockValues[0];
+                    int gbase = (int) geomeValues[0];
+
+                    for (; y[0] > 0; y[0]--) {
+                        int i = indexBase + y[0];
+                        if (blockBuffer[i] == Blocks.stone) {
+                            int geome = gbase + y[0];
+                            if (geome < -32) {
+                                blockBuffer[i] = pickBlockFromList(baseRockVal + y[0], Mineralogy.igneousStones);
+                            } else if (geome < 32) {
+                                blockBuffer[i] = pickBlockFromList(
+                                    baseRockVal + y[0] + 3,
+                                    Mineralogy.metamorphicStones);
+                            } else {
+                                blockBuffer[i] = pickBlockFromList(
+                                    baseRockVal + y[0] + 5,
+                                    Mineralogy.sedimentaryStones);
+                            }
                         }
                     }
-                }
+                }, null); // null est passé comme résultat, car Callable<Void> ne retourne rien
+
+                tasks.add(task);
             }
         }
 
+        // Exécute les tâches en parallèle
+        try {
+            threadPool.invokeAll(tasks);
+        } catch (InterruptedException e) {
+            Thread.currentThread()
+                .interrupt();
+        }
     }
 
     public Block[] getStoneColumn(int x, int z, int height) {
@@ -159,15 +176,7 @@ public class Geology {
         return col;
     }
 
-    /**
-     * given any number, this method grabs a block from the list based on that number.
-     *
-     * @param value product of noise layer + height
-     * @param list
-     * @return
-     */
     private Block pickBlockFromList(int value, List<Block> list) {
         return list.get(whiteNoiseArray[(value >> 3) & 0xFF] % list.size());
     }
-
 }
