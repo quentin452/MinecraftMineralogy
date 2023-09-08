@@ -37,16 +37,18 @@ public final class DynamicTabProvider implements IDynamicTabProvider {
         defaultIcon = ioC.resolve(ItemStack.class, "defaultIcon", Mineralogy.MODID);
     }
 
-    private MMDCreativeTab getTabByName(String tabName) throws TabNotFoundException {
+    private MMDCreativeTab getTabByName(String tabName) {
         MMDCreativeTab tab = tabs.get(tabName);
 
-        if (tab == null) throw new TabNotFoundException(tabName);
+        if(tab == null) {
+            tab = tabs.get("default");
+        }
 
         return tab;
     }
 
     @Override
-    public DynamicTabProvider addToTab(String tabName, Block block) throws TabNotFoundException {
+    public DynamicTabProvider addToTab(String tabName, Block block) {
 
         MMDCreativeTab tab = getTabByName(tabName);
 
