@@ -13,9 +13,10 @@ public class MineralogyWorldProvider extends WorldProviderSurface {
      */
     @Override
     public IChunkProvider createChunkGenerator() {
-        if (terrainType == WorldType.FLAT) {
+        if (terrainType == WorldType.DEFAULT_1_1) {
             return super.createChunkGenerator();
         }
+
         return new MineralogyChunkGenerator(
             worldObj,
             worldObj.getSeed(),
@@ -24,5 +25,4 @@ public class MineralogyWorldProvider extends WorldProviderSurface {
             field_82913_c,
             terrainType);
     }
-
 }
