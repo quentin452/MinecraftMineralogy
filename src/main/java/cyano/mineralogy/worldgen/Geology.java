@@ -17,16 +17,10 @@ import cyano.mineralogy.worldgen.math.PerlinNoise2D;
 
 public class Geology {
 
-    private final Random random;
     private final PerlinNoise2D geomeNoiseLayer;
     private final PerlinNoise2D rockNoiseLayer;
-    private final long seed;
-    private final double geomeSize;
 
     private final short[] whiteNoiseArray;
-
-    private final Map<Long, float[]> geomeCache = new ConcurrentHashMap<>();
-    private final Map<Long, float[]> rockCache = new ConcurrentHashMap<>();
 
     // Cache local pour les valeurs de bruit
     private final Map<Long, float[]> localGeomeCache = new ConcurrentHashMap<>();
@@ -38,7 +32,6 @@ public class Geology {
             .availableProcessors());
 
     public Geology(long seed, double geomeSize, double rockLayerSize) {
-        this.seed = seed;
         int rockLayerUndertones = 4;
         int undertoneMultiplier = 1 << (rockLayerUndertones - 1);
         geomeNoiseLayer = new PerlinNoise2D(~seed, 128, (float) geomeSize, 2);
@@ -47,9 +40,8 @@ public class Geology {
             (float) (4 * undertoneMultiplier),
             (float) (rockLayerSize * undertoneMultiplier),
             rockLayerUndertones);
-        this.geomeSize = geomeSize;
 
-        random = new Random(seed);
+        Random random = new Random(seed);
         whiteNoiseArray = new short[256];
         for (int i = 0; i < whiteNoiseArray.length; i++) {
             whiteNoiseArray[i] = (short) random.nextInt(0x7FFF);
