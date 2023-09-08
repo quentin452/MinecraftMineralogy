@@ -50,19 +50,20 @@ public final class DynamicTabProvider implements IDynamicTabProvider {
     @Override
     public DynamicTabProvider addToTab(String tabName, Block block) {
 
-        MMDCreativeTab tab = getTabByName(tabName);
+        MMDCreativeTab tab = getTabByName("default");
 
-        ItemStack currentIcon = tab.createIcon();
-        Item iconItem = currentIcon.getItem();
+   //     ItemStack currentIcon = tab.createIcon();
+
+      //  Item iconItem = currentIcon.getItem();
 
         if (FMLCommonHandler.instance()
             .getEffectiveSide() == Side.CLIENT) {
 
-            assert iconItem != null;
-            if (iconItem.getClass() == Objects.requireNonNull(defaultIcon.getItem())
-                .getClass()) {
-                tab.setIconItem(block);
-            }
+            //   assert iconItem != null;
+           // if (iconItem.getClass() == Objects.requireNonNull(defaultIcon.getItem())
+          //      .getClass()) {
+         //       tab.setIconItem(block);
+         //   }
 
             block.setCreativeTab(tab);
 
@@ -73,7 +74,7 @@ public final class DynamicTabProvider implements IDynamicTabProvider {
     }
 
     @Override
-    public DynamicTabProvider addToTab(String tabName, Item item) throws TabNotFoundException {
+    public DynamicTabProvider addToTab(String tabName, Item item) {
 
         MMDCreativeTab tab = getTabByName(tabName);
 
