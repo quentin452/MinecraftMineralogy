@@ -70,11 +70,6 @@ public class Mineralogy {
 
     @Mod.EventHandler
     public void init(FMLInitializationEvent event) {
-        if (MineralogyConfig.smeltableGravel())
-            GameRegistry.addSmelting(Blocks.gravel, new ItemStack(Blocks.stone), 0.1F);
-
-        GameRegistry.registerWorldGenerator(new StoneReplacer(), 10); // register custom chunk generation
-
         com.mcmoddev.mineralogy.init.Blocks.init();
         com.mcmoddev.mineralogy.init.Items.init();
         com.mcmoddev.mineralogy.init.Ores.Init();
