@@ -1,7 +1,9 @@
 package com.mcmoddev.mineralogy.init;
 
+import com.mcmoddev.mineralogy.MineralogyLogger;
 import net.minecraft.block.Block;
 import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 import com.mcmoddev.mineralogy.Constants;
@@ -107,7 +109,8 @@ public class Blocks {
             ItemStack drywallItemStack = new ItemStack(drywalls[i].PairedItem, 1);
             ItemStack dyeItemStack = new ItemStack(Items.dye, 1, i);
             ItemStack outputItemStack = new ItemStack(drywalls[i].PairedItem, 1);
-            GameRegistry.addShapelessRecipe(outputItemStack, drywallItemStack, Constants.DRYWALL_WHITE, dyeItemStack);
+            ItemStack drywallwhite = new ItemStack(Block.getBlockFromName(Constants.DRYWALL_WHITE), 1);
+            GameRegistry.addShapelessRecipe(outputItemStack, drywallItemStack,drywallwhite, dyeItemStack);
         }
 
         initDone = true;
@@ -124,23 +127,27 @@ public class Blocks {
             materialName + "_relief_blank",
             Constants.RELIEF + "Blank" + materialName);
         ItemStack outputItemStack = new ItemStack(blankRelief.PairedItem, 16);
-        GameRegistry.addShapedRecipe(outputItemStack, "xxx", "xxx", "xxx", 'x', oreDictName);
-
+        try {
+            GameRegistry.addShapedRecipe(outputItemStack, "xxx", "xxx", "xxx", 'x', oreDictName);
+        } catch(NullPointerException e) {
+            MineralogyLogger.LOGGER.error("Error adding recipe", e);
+        }
         final BlockItemPair axeRelief = RegistrationHelper.registerBlock(
             new RockRelief((float) hardness, (float) blastResistance / 2, toolHardnessLevel, Block.soundTypeStone),
             materialName + "_relief_axe",
             Constants.RELIEF + "Axe" + materialName);
         ItemStack outputItemStack1 = new ItemStack(axeRelief.PairedItem, 8);
+        ItemStack blankRelief2 = new ItemStack(blankRelief.PairedBlock, 1);
         GameRegistry.addShapelessRecipe(
-            outputItemStack1, // Output ItemStack
-            Constants.RELIEF + "Blank" + materialName,
-            Constants.RELIEF + "Blank" + materialName,
-            Constants.RELIEF + "Blank" + materialName,
-            Constants.RELIEF + "Blank" + materialName,
-            Constants.RELIEF + "Blank" + materialName,
-            Constants.RELIEF + "Blank" + materialName,
-            Constants.RELIEF + "Blank" + materialName,
-            Constants.RELIEF + "Blank" + materialName,
+            outputItemStack1,
+            blankRelief2,
+            blankRelief2,
+            blankRelief2,
+            blankRelief2,
+            blankRelief2,
+            blankRelief2,
+            blankRelief2,
+            blankRelief2,
             Items.stone_axe);
 
         final BlockItemPair crossRelief = RegistrationHelper.registerBlock(
@@ -149,9 +156,14 @@ public class Blocks {
             Constants.RELIEF + "Cross" + materialName);
         Block ingredientBlock = Block.getBlockFromName(Constants.RELIEF + "Blank" + materialName);
 
+        ItemStack outputItemStack10 = new ItemStack(crossRelief.PairedItem, 4);
         ItemStack ingredientItemStack = new ItemStack(ingredientBlock);
 
-        GameRegistry.addShapedRecipe(outputItemStack, "x x", " ", "x x", 'x', ingredientItemStack);
+        try {
+            GameRegistry.addShapedRecipe(outputItemStack10, "x x", "   ", "x x", 'x', ingredientBlock);
+        } catch(NullPointerException e) {
+            MineralogyLogger.LOGGER.error("Error adding recipe", e);
+        }
         final BlockItemPair hammerRelief = RegistrationHelper.registerBlock(
             new RockRelief((float) hardness, (float) blastResistance / 2, toolHardnessLevel, Block.soundTypeStone),
             materialName + "_relief_hammer",

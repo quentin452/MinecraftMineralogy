@@ -134,7 +134,7 @@ public class Ores {
         ItemStack dustItemStack = new ItemStack(dust);
 
         ItemStack outputItemStack = new ItemStack(pair.PairedItem);
-        GameRegistry.addShapedRecipe(outputItemStack, new Object[] { "xxx", "xxx", "xxx" }, 'x', dustItemStack);
+        GameRegistry.addShapedRecipe(outputItemStack, new String[]{"xxx", "xxx", "xxx"}, 'x', dustItemStack);
 
         ItemStack dustOutput = new ItemStack(dust, 9);
         GameRegistry.addShapelessRecipe(dustOutput, blockItemStack, blockItemStack);

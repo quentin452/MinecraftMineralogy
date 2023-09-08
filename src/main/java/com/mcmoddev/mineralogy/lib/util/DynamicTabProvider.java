@@ -81,14 +81,14 @@ public final class DynamicTabProvider implements IDynamicTabProvider {
         if (FMLCommonHandler.instance()
             .getEffectiveSide() == Side.CLIENT) {
 
-            ItemStack currentIcon = tab.createIcon();
-            Item iconItem = currentIcon.getItem();
+      //      ItemStack currentIcon = tab.createIcon();
+     //       Item iconItem = currentIcon.getItem();
 
-            assert iconItem != null;
-            if (iconItem.getClass() == Objects.requireNonNull(defaultIcon.getItem())
-                .getClass()) {
-                tab.setIconItem(item);
-            }
+       //     assert iconItem != null;
+       //     if (iconItem.getClass() == Objects.requireNonNull(defaultIcon.getItem())
+        //        .getClass()) {
+        //        tab.setIconItem(item);
+       //     }
 
         }
 

@@ -47,8 +47,9 @@ public class Recipes {
             .addShapelessRecipe(gunpowder, new ItemStack(Items.sugar), new ItemStack(nitrate), new ItemStack(sulfur));
 
         ItemStack fertilizer = new ItemStack(mineralFertilizer, 1);
-        Block nitrate2 = Block.getBlockFromName(Constants.DUST_NITRATE);
-        GameRegistry.addShapelessRecipe(fertilizer, nitrate2, "dustPhosphorous");
+        ItemStack dustPhosphorous = new ItemStack(Block.getBlockFromName("dustPhosphorous"),1);
+        ItemStack nitrate2 = new ItemStack(Block.getBlockFromName(Constants.DUST_NITRATE), 1);
+        GameRegistry.addShapelessRecipe(fertilizer, nitrate2, dustPhosphorous);
 
         ItemStack cobble = new ItemStack(Blocks.cobblestone, 4);
         Block stone = Block.getBlockFromName("stone");
@@ -61,55 +62,56 @@ public class Recipes {
             new ItemStack(gravel));
 
         ItemStack gypsum = new ItemStack(blockGypsum, 1);
-        Block gypsumDust = Block.getBlockFromName("dustGypsum");
+        ItemStack gypsumDust = new ItemStack(Block.getBlockFromName("dustGypsum"));
         GameRegistry.addShapedRecipe(gypsum, "xxx", "xxx", "xxx", 'x', gypsumDust);
-        Block chalkDust = Block.getBlockFromName("dustChalk");
+        ItemStack chalkDust = new ItemStack(Block.getBlockFromName("dustChalk"));
         ItemStack chalk = new ItemStack(blockChalk, 1);
         GameRegistry.addShapedRecipe(chalk, "xx", "xx", 'x', chalkDust);
 
-        Block rockSaltDust = Block.getBlockFromName("dustRock_salt");
+        ItemStack rockSaltDust = new ItemStack(Block.getBlockFromName("dustRock_salt"));
         ItemStack rockSalt = new ItemStack(blockRocksalt, 1);
         GameRegistry.addShapedRecipe(rockSalt, "xx", "xx", 'x', rockSaltDust);
 
-        Block gypsumBlock = Block.getBlockFromName(String.valueOf(blockChalk));
+        ItemStack gypsumBlock = new ItemStack(Block.getBlockFromName(String.valueOf(blockChalk)));
         ItemStack gypsumDust5 = new ItemStack(dustGypsum, 9);
         GameRegistry.addShapelessRecipe(gypsumDust5, gypsumBlock);
 
-        Block chalkBlock = Block.getBlockFromName(String.valueOf(blockChalk));
+        ItemStack chalkBlock = new ItemStack(Block.getBlockFromName(String.valueOf(blockChalk)));
         ItemStack chalkDust5 = new ItemStack(dustChalk, 4);
         GameRegistry.addShapelessRecipe(chalkDust5, chalkBlock);
 
-        Block rockSaltBlock = Block.getBlockFromName(String.valueOf(blockChalk));
+        ItemStack rockSaltBlock = new ItemStack(Block.getBlockFromName(String.valueOf(blockChalk)));
         ItemStack rockSaltDust5 = new ItemStack(dustRocksalt, 4);
         GameRegistry.addShapelessRecipe(rockSaltDust5, rockSaltBlock);
 
         Item dryWallWhite = IoC.resolve(BlockItemPair.class, Constants.DRYWALL_WHITE, Mineralogy.MODID).PairedItem;
 
         ItemStack paper = new ItemStack(Block.getBlockFromName(Constants.PAPER));
-        Block gypsumDust10 = Block.getBlockFromName(Constants.DUST_GYPSUM);
+        ItemStack gypsumDust10 = new ItemStack(Block.getBlockFromName(Constants.DUST_GYPSUM));
         ItemStack drywall = new ItemStack(dryWallWhite, 3);
         GameRegistry.addShapedRecipe(drywall, "pgp", "pgp", "pgp", 'p', paper, 'g', gypsumDust10);
 
         ItemStack coal = new ItemStack(Items.coal);
-        Block nitrate10 = Block.getBlockFromName(Constants.DUST_NITRATE);
-        Block sulfur10 = Block.getBlockFromName(Constants.DUST_SULFUR);
+        ItemStack nitrate10 = new ItemStack(Block.getBlockFromName(Constants.DUST_NITRATE));
+        ItemStack sulfur10 = new ItemStack(Block.getBlockFromName(Constants.DUST_SULFUR));
         ItemStack gunpowder10 = new ItemStack(Items.gunpowder, 4);
         GameRegistry.addShapelessRecipe(gunpowder10, coal, nitrate10, sulfur10);
 
-        Block carbon = Block.getBlockFromName(Constants.DUST_CARBON);
+        ItemStack carbon = new ItemStack(Block.getBlockFromName(Constants.DUST_CARBON));
         GameRegistry.addShapelessRecipe(gunpowder10, carbon, nitrate10, sulfur10);
 
-        Block rockSaltBlock5 = Block.getBlockFromName(Constants.BLOCK_ROCKSALT);
+        ItemStack rockSaltBlock5 = new ItemStack(Block.getBlockFromName(Constants.BLOCK_ROCKSALT));
         ItemStack rockSaltLamp = new ItemStack(blockRockSaltLamp, 1);
         GameRegistry.addShapelessRecipe(
             rockSaltLamp,
-            new ItemStack(rockSaltBlock5),
+            new ItemStack(rockSaltBlock5.getItem()),
             new ItemStack(Blocks.torch),
             new ItemStack(Items.iron_ingot));
 
         ItemStack ironIngot = new ItemStack(Items.iron_ingot);
         ItemStack streetLamp = new ItemStack(blockRockSaltStreetLamp, 1);
-        GameRegistry.addShapedRecipe(streetLamp, "x", "y", "y", 'x', "lampRocksalt", 'y', ironIngot);
+        ItemStack lampRocksalt = new ItemStack(Block.getBlockFromName("lampRocksalt"), 1);
+        GameRegistry.addShapedRecipe(streetLamp, "x", "y", "y", 'x', lampRocksalt, 'y', ironIngot);
 
         initDone = true;
     }

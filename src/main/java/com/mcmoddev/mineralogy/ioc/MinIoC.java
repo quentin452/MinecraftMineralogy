@@ -152,7 +152,8 @@ public class MinIoC {
      * create relationships between class/interface type and concretes
      */
     public void wireup() {
-        this.register(ItemStack.class, new ItemStack(Items.iron_pickaxe), "defaultIcon", Mineralogy.MODID);
+        // this line make a crash on startup
+        //this.register(ItemStack.class, new ItemStack(Items.iron_pickaxe), "defaultIcon", Mineralogy.MODID);
 
         if (MineralogyConfig.groupCreativeTabItemsByType()) this.register(
             IDynamicTabProvider.class,
