@@ -2,6 +2,7 @@ package com.mcmoddev.mineralogy;
 
 // DON'T FORGET TO UPDATE mcmod.info FILE!!!
 
+import com.mcmoddev.mineralogy.blocks.Chert;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
@@ -33,7 +34,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
     acceptedMinecraftVersions = "[1.7.10]",
     certificateFingerprint = "@FINGERPRINT@")
 public class Mineralogy {
-
+    public static Block Chert;
     @Mod.Instance(Tags.MODID)
     public static Mineralogy instance;
 
@@ -63,6 +64,13 @@ public class Mineralogy {
         MinecraftForge.EVENT_BUS.register(com.mcmoddev.mineralogy.init.Items.class);
         MinecraftForge.EVENT_BUS.register(com.mcmoddev.mineralogy.init.Ores.class);
         MinecraftForge.EVENT_BUS.register(com.mcmoddev.mineralogy.init.Recipes.class);
+
+
+
+
+
+        Chert = new Chert();
+        GameRegistry.registerBlock(Chert, "chert");
 
     }
 
