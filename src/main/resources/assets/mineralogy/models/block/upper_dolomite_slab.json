@@ -1,8 +1,0 @@
-{
-  "parent": "block/upper_slab",
-  "textures": {
-    "bottom": "mineralogy:blocks/dolomite",
-    "top": "mineralogy:blocks/dolomite",
-    "side": "mineralogy:blocks/dolomite"
-  }
-}

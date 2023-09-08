@@ -1,8 +1,0 @@
-{
-  "parent": "block/half_slab",
-  "textures": {
-    "bottom": "mineralogy:blocks/gabbro_smooth_brick_top",
-    "top": "mineralogy:blocks/gabbro_smooth_brick_top",
-    "side": "mineralogy:blocks/gabbro_smooth_brick_side"
-  }
-}

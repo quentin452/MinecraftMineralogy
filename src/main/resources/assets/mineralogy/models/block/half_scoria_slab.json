@@ -1,8 +1,0 @@
-{
-  "parent": "block/half_slab",
-  "textures": {
-    "bottom": "mineralogy:blocks/scoria",
-    "top": "mineralogy:blocks/scoria",
-    "side": "mineralogy:blocks/scoria"
-  }
-}

@@ -1,8 +1,0 @@
-{
-  "parent": "block/upper_slab",
-  "textures": {
-    "bottom": "mineralogy:blocks/phyllite",
-    "top": "mineralogy:blocks/phyllite",
-    "side": "mineralogy:blocks/phyllite"
-  }
-}

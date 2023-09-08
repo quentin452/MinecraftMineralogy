@@ -1,8 +1,0 @@
-{
-  "parent": "block/upper_slab",
-  "textures": {
-    "bottom": "mineralogy:blocks/peridotite",
-    "top": "mineralogy:blocks/peridotite",
-    "side": "mineralogy:blocks/peridotite"
-  }
-}

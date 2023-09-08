@@ -1,8 +1,0 @@
-{
-  "parent": "block/half_slab",
-  "textures": {
-    "bottom": "mineralogy:blocks/phyllite_smooth",
-    "top": "mineralogy:blocks/phyllite_smooth",
-    "side": "mineralogy:blocks/phyllite_smooth"
-  }
-}
