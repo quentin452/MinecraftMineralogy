@@ -64,8 +64,6 @@ public class Mineralogy {
         MinecraftForge.EVENT_BUS.register(com.mcmoddev.mineralogy.init.Ores.class);
         MinecraftForge.EVENT_BUS.register(com.mcmoddev.mineralogy.init.Recipes.class);
 
-        MineralogyConfig.preInit(event);
-
     }
 
     @Mod.EventHandler

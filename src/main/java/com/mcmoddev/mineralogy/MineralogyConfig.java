@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import cpw.mods.fml.common.Mod;
 import net.minecraftforge.common.config.Configuration;
 
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
@@ -51,7 +52,7 @@ public class MineralogyConfig {
     private static List<String> metamorphicBlacklist = new ArrayList<>();
 
     private static Configuration config;
-
+    @Mod.EventHandler
     public static void preInit(FMLPreInitializationEvent event) {
         // load config
         config = new Configuration(event.getSuggestedConfigurationFile());
