@@ -2,6 +2,7 @@ package com.mcmoddev.mineralogy.blocks;
 
 import java.util.ArrayList;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.EntityPlayer;
@@ -18,12 +19,11 @@ public class DoubleSlab extends net.minecraft.block.Block {
 
     private net.minecraft.block.Block _drops;
 
-    public DoubleSlab(float hardness, float blastResistance, int toolHardnessLevel, SoundType sound,
-        net.minecraft.block.Block drops) {
+    public DoubleSlab(float hardness, float blastResistance, int toolHardnessLevel, net.minecraft.block.Block drops) {
         super(Material.rock);
-        this.setHardness(hardness); // dirt is 0.5, grass is 0.6, stone is 1.5,iron ore is 3, obsidian is 50
-        this.setResistance(blastResistance); // dirt is 0, iron ore is 5, stone is 10, obsidian is 2000
-        this.setStepSound(sound); // sound for stone
+        this.setHardness(hardness);
+        this.setResistance(blastResistance);
+        this.setStepSound(Block.soundTypeStone);
         this.setHarvestLevel("pickaxe", toolHardnessLevel);
         _drops = drops;
     }

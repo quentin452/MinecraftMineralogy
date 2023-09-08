@@ -402,14 +402,14 @@ public class Blocks {
                     (float) materialType.hardness,
                     (float) materialType.blastResistance,
                     materialType.toolHardnessLevel,
-                    Block.soundTypeStone,
-                    rockSlabPair.PairedBlock),
+                    rockSlabPair.PairedBlock
+                ),
                 name + "_double_" + Constants.SLAB,
                 Constants.SLAB + "Double" + materialType.materialName,
                 false,
                 64,
-                false);
-
+                false
+            );
             if (MineralogyConfig.generateRockFurnace()) {
                 rockFurnacePair = RegistrationHelper.registerBlock(
                     new RockFurnace(
@@ -526,7 +526,6 @@ public class Blocks {
                         (float) materialType.hardness,
                         (float) materialType.blastResistance,
                         materialType.toolHardnessLevel,
-                        Block.soundTypeStone,
                         brickSlabPair.PairedBlock),
                     name + "_" + Constants.BRICK + "_double_" + Constants.SLAB,
                     Constants.SLAB + "Double" + materialType.materialName + "Brick",
@@ -669,7 +668,6 @@ public class Blocks {
                         (float) materialType.hardness,
                         (float) materialType.blastResistance,
                         materialType.toolHardnessLevel,
-                        Block.soundTypeStone,
                         smoothSlabPair.PairedBlock),
                     name + "_" + Constants.SMOOTH + "_double_" + Constants.SLAB,
                     Constants.SLAB + "Double" + materialType.materialName + "Smooth",
@@ -801,7 +799,6 @@ public class Blocks {
                             (float) materialType.hardness,
                             (float) materialType.blastResistance,
                             materialType.toolHardnessLevel,
-                            Block.soundTypeStone,
                             smoothBrickSlabPair.PairedBlock),
                         name + "_" + Constants.SMOOTH + "_" + Constants.BRICK + "_double_" + Constants.SLAB,
                         Constants.SLAB + "Double" + materialType.materialName + "SmoothBrick",
