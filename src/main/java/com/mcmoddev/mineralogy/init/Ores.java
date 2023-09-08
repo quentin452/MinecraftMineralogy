@@ -1,5 +1,6 @@
 package com.mcmoddev.mineralogy.init;
 
+import com.mcmoddev.mineralogy.MineralogyLogger;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -30,6 +31,7 @@ public class Ores {
     }
 
     public static void Init() {
+        try{
         if (initDone) {
             return;
         }
@@ -92,6 +94,9 @@ public class Ores {
             .save();
 
         initDone = true;
+        } catch (NullPointerException e) {
+            MineralogyLogger.LOGGER.error("Error loading configuration", e);
+        }
     }
 
     private static Block addOre(String oreDictionaryName, Item oreDropItem, int numMin, int numMax, int pickLevel,
