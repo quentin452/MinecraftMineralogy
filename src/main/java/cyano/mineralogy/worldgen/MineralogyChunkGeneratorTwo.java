@@ -3,6 +3,7 @@ package cyano.mineralogy.worldgen;
 import java.util.List;
 import java.util.Random;
 
+import cyano.mineralogy.worldgen.math.fastrandom.FastRandom;
 import fr.iamacat.multithreading.worldgen.ChunkProviderGenerateTwo;
 import net.minecraft.block.Block;
 import net.minecraft.world.World;
@@ -26,7 +27,7 @@ public class MineralogyChunkGeneratorTwo extends ChunkProviderGenerateTwo {
     final World worldObj;
     final Geology geome;
     final boolean mapFeaturesEnabled;
-    final Random rand;
+    final FastRandom rand;
 
     private MapGenBase caveGenerator = new MapGenCaves();
     private MapGenStronghold strongholdGenerator = new MapGenStronghold();
@@ -43,7 +44,52 @@ public class MineralogyChunkGeneratorTwo extends ChunkProviderGenerateTwo {
         this.worldObj = world;
         this.generatorOptionsString = generatorOptionsString;
         this.mapFeaturesEnabled = mapFeaturesEnabled;
-        this.rand = new Random(seed);
+        this.rand = new FastRandom() {
+            @Override
+            public void setSeed(long seed) {
+
+            }
+
+            @Override
+            public void nextBytes(byte[] bytes) {
+
+            }
+
+            @Override
+            public int nextInt() {
+                return 0;
+            }
+
+            @Override
+            public int nextInt(int n) {
+                return 0;
+            }
+
+            @Override
+            public long nextLong() {
+                return 0;
+            }
+
+            @Override
+            public boolean nextBoolean() {
+                return false;
+            }
+
+            @Override
+            public float nextFloat() {
+                return 0;
+            }
+
+            @Override
+            public double nextDouble() {
+                return 0;
+            }
+
+            @Override
+            public double nextGaussian() {
+                return 0;
+            }
+        };
 
         geome = new Geology(seed, Mineralogy.GEOME_SIZE, Mineralogy.ROCK_LAYER_SIZE);
     }
