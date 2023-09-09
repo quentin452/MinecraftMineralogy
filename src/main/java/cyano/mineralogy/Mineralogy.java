@@ -45,6 +45,7 @@ public class Mineralogy {
     public static final List<Block> metamorphicStones = new ArrayList<Block>();
     /** stone block replacesments that are igneous */
     public static final List<Block> igneousStones = new ArrayList<Block>();
+
     /** all blocks used in this mod (blockID,block) */
     public static final Map<String, Block> mineralogyBlockRegistry = new HashMap<String, Block>();
 
@@ -95,7 +96,7 @@ public class Mineralogy {
         addStoneType(RockType.SEDIMENTARY, "limestone", 1.5, 10, 0, true, true, true, true);
         sedimentaryStones.add(Blocks.sandstone);
         sedimentaryStones.add(Blocks.sand);
-        sedimentaryStones.add(Blocks.gravel);
+       // sedimentaryStones.add(Blocks.gravel);
         blockGypsum = new Gypsum();
         GameRegistry.registerBlock(blockGypsum, "gypsum");
         mineralogyBlockRegistry.put("gypsum", blockGypsum);

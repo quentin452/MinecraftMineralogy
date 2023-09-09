@@ -80,7 +80,6 @@ public class Geology {
         int xOffset = chunkX << 4;
         int zOffset = chunkZ << 4;
 
-        // Liste des tâches pour le pool de threads
         List<Callable<Void>> tasks = new ArrayList<>();
 
         for (int dx = 0; dx < 16; dx++) {
@@ -93,7 +92,6 @@ public class Geology {
                     y[0]--;
                 }
 
-                // Crée une nouvelle tâche pour calculer les valeurs de bruit
                 Callable<Void> task = Executors.callable(() -> {
                     long key = ((long) x << 32) | ((long) z & 0xFFFFFFFFL);
                     float[] rockValues = localRockCache.computeIfAbsent(key, k -> {
@@ -128,13 +126,12 @@ public class Geology {
                             }
                         }
                     }
-                }, null); // null est passé comme résultat, car Callable<Void> ne retourne rien
+                }, null);
 
                 tasks.add(task);
             }
         }
 
-        // Exécute les tâches en parallèle
         try {
             threadPool.invokeAll(tasks);
         } catch (InterruptedException e) {
@@ -157,6 +154,7 @@ public class Geology {
             if (geome < -32) {
                 // RockType.IGNEOUS;
                 col[y] = pickBlockFromList(baseRockVal + y, Mineralogy.igneousStones);
+
             } else if (geome < 32) {
                 // RockType.METAMORPHIC;
                 col[y] = pickBlockFromList(baseRockVal + y + 3, Mineralogy.metamorphicStones);
