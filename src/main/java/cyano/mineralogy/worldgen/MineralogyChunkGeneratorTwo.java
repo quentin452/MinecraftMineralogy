@@ -1,12 +1,14 @@
 package cyano.mineralogy.worldgen;
 
-import cyano.mineralogy.Mineralogy;
+import java.util.List;
+import java.util.Random;
+
+import fr.iamacat.multithreading.worldgen.ChunkProviderGenerateTwo;
 import net.minecraft.block.Block;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldType;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.Chunk;
-import net.minecraft.world.gen.ChunkProviderGenerate;
 import net.minecraft.world.gen.MapGenBase;
 import net.minecraft.world.gen.MapGenCaves;
 import net.minecraft.world.gen.MapGenRavine;
@@ -15,10 +17,9 @@ import net.minecraft.world.gen.structure.MapGenScatteredFeature;
 import net.minecraft.world.gen.structure.MapGenStronghold;
 import net.minecraft.world.gen.structure.MapGenVillage;
 
-import java.util.List;
-import java.util.Random;
+import cyano.mineralogy.Mineralogy;
 
-public class MineralogyChunkGenerator extends ChunkProviderGenerate {
+public class MineralogyChunkGeneratorTwo extends ChunkProviderGenerateTwo {
 
     final String generatorOptionsString;
     final WorldType worldType;
@@ -35,8 +36,8 @@ public class MineralogyChunkGenerator extends ChunkProviderGenerate {
     private MapGenBase ravineGenerator = new MapGenRavine();
     private BiomeGenBase[] biomesForGeneration;
 
-    public MineralogyChunkGenerator(World world, long seed, boolean mapFeaturesEnabled, String generatorOptionsString,
-                                    WorldType worldType) {
+    public MineralogyChunkGeneratorTwo(World world, long seed, boolean mapFeaturesEnabled, String generatorOptionsString,
+                                       WorldType worldType) {
         super(world, seed, mapFeaturesEnabled);
         this.worldType = worldType;
         this.worldObj = world;
