@@ -22,7 +22,7 @@ https://github.com/quentin452/MinecraftMineralogy/wiki
 
 # Required libraries
 
-This mod require [MultithreadingAndTweaks](https://legacy.curseforge.com/minecraft/mc-mods/multithreadingandtweaks/files/4744598)
+This mod require [MultithreadingAndTweaks V0.8.7.4.2 and above](https://legacy.curseforge.com/minecraft/mc-mods/multithreadingandtweaks/files) 
 
 # Discord
 
