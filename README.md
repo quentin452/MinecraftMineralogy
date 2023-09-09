@@ -20,6 +20,10 @@ https://github.com/quentin452/MinecraftMineralogy/wiki
 
 [*Curseforge*](https://legacy.curseforge.com/minecraft/mc-mods/mineralogy-continuation)
 
+# Required libraries
+
+This mod require [MultithreadingAndTweaks](https://legacy.curseforge.com/minecraft/mc-mods/multithreadingandtweaks/files/4744598)
+
 # Discord
 
 Add me on discord : imacatfr
