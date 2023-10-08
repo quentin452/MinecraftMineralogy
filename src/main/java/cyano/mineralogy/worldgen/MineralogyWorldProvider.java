@@ -14,7 +14,7 @@ public class MineralogyWorldProvider extends WorldProviderSurface {
     // todo add a config to switch to multithreading and tweaks or vanilla
     @Override
     public IChunkProvider createChunkGenerator() {
-        if (terrainType == WorldType.DEFAULT_1_1) {
+        if (terrainType == WorldType.DEFAULT) {
             return super.createChunkGenerator();
         }
         return new MineralogyChunkGeneratorTwo(
