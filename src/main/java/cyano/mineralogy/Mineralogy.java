@@ -33,7 +33,7 @@ import cyano.mineralogy.items.*;
 import cyano.mineralogy.worldgen.MineralogyWorldProvider;
 import cyano.mineralogy.worldgen.OreSpawner;
 
-@Mod(modid = Mineralogy.MODID, name = Mineralogy.NAME,dependencies = "required-after:multithreadingandtweaks@[0.8,);", version = Mineralogy.VERSION)
+@Mod(modid = Mineralogy.MODID, name = Mineralogy.NAME,dependencies = "required-after:optimizationsandtweaks;", version = Mineralogy.VERSION)
 public class Mineralogy {
 
     public static final String MODID = "mineralogy";

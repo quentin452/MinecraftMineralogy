@@ -3,7 +3,7 @@ package cyano.mineralogy.worldgen;
 import java.util.List;
 import java.util.Random;
 
-import fr.iamacat.multithreading.worldgen.ChunkProviderGenerateTwo;
+import fr.iamacat.optimizationsandtweaks.worldgen.ChunkProviderGenerateTwo;
 import net.minecraft.block.Block;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldType;
