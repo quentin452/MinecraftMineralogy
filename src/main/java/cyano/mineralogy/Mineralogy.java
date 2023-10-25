@@ -95,6 +95,8 @@ public class Mineralogy {
         addStoneType(RockType.SEDIMENTARY, "dolomite", 3, 15, 1, true, true, true, false);
         addStoneType(RockType.SEDIMENTARY, "limestone", 1.5, 10, 0, true, true, true, true);
         sedimentaryStones.add(Blocks.sandstone);
+        sedimentaryStones.add(Blocks.sand);
+       // sedimentaryStones.add(Blocks.gravel);
         blockGypsum = new Gypsum();
         GameRegistry.registerBlock(blockGypsum, "gypsum");
         mineralogyBlockRegistry.put("gypsum", blockGypsum);
