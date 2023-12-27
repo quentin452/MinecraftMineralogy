@@ -9,6 +9,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import fr.iamacat.optimizationsandtweaks.utils.agrona.collections.Object2ObjectHashMap;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 
@@ -22,11 +23,9 @@ public class Geology {
 
     private final short[] whiteNoiseArray;
 
-    // Cache local pour les valeurs de bruit
-    private final Map<Long, float[]> localGeomeCache = new ConcurrentHashMap<>();
-    private final Map<Long, float[]> localRockCache = new ConcurrentHashMap<>();
+    private final Map<Long, float[]> localGeomeCache = new Object2ObjectHashMap<>();
+    private final Map<Long, float[]> localRockCache = new Object2ObjectHashMap<>();
 
-    // Pool de threads pour les calculs
     private final ExecutorService threadPool = Executors.newFixedThreadPool(
         Runtime.getRuntime()
             .availableProcessors());
